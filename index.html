@@ -97,7 +97,6 @@
         @keyframes leafFadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
         .leaf-fade-in { opacity: 0; animation: leafFadeIn 1.5s ease-out forwards; }
 
-        /* 直式頻率交會 SVG 動畫 */
         .frequency-path {
             stroke-dasharray: 1200;
             stroke-dashoffset: 1200;
@@ -107,7 +106,6 @@
             stroke-dashoffset: 0;
         }
 
-        /* ✨ 那些日常 & 那片森林：手機版蜿蜒效果 */
         @media (max-width: 768px) {
             .forest-photo:nth-child(odd) { align-self: flex-start; padding-left: 5%; }
             .forest-photo:nth-child(even) { align-self: flex-end; padding-right: 5%; }
@@ -122,7 +120,6 @@
             }
         }
 
-        /* 那段音樂排版 */
         .music-stack-container {
             display: flex;
             padding: 80px 50vw 60px 50vw; 
@@ -173,7 +170,6 @@
 
     <div id="cursor" class="custom-cursor hidden md:block"></div>
 
-    <!-- 圖片燈箱 -->
     <div id="image-modal" class="fixed inset-0 z-[100] bg-japandi-paper/95 backdrop-blur-sm opacity-0 invisible flex items-center justify-center p-6 md:p-12 cursor-pointer" onclick="closeModal()">
         <div class="relative max-w-5xl max-h-full">
             <img id="modal-img" src="" alt="放大檢視" class="w-full h-auto max-h-[85vh] object-contain shadow-2xl rounded-sm">
@@ -181,7 +177,6 @@
         </div>
     </div>
 
-    <!-- 導航列 -->
     <nav class="fixed top-0 left-0 w-full p-6 md:p-8 z-50 flex justify-between items-center pointer-events-none">
         <div class="font-serif text-sm tracking-superwide pointer-events-auto cursor-pointer" onclick="window.scrollTo(0,0)">建誠 ＆ 奕昕</div>
     </nav>
@@ -191,8 +186,6 @@
         <div class="absolute inset-0 opacity-10">
             <img src="https://images.unsplash.com/photo-1518131394553-c46bc17d1d40?q=80&w=2070" class="w-full h-full object-cover grayscale blur-md" alt="背景">
         </div>
-        
-        <!-- 動畫線圖 -->
         <div class="absolute inset-x-0 bottom-0 z-0 flex items-end justify-center translate-y-12 md:translate-y-20 pointer-events-none artifact-float">
             <svg width="1200" height="800" viewBox="0 0 1000 800" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[140%] md:w-full opacity-60">
                 <path class="line-art-path" d="M0,620 C150,580 250,680 400,550 C550,420 700,580 850,480 C950,410 1000,450 1000,450" stroke="#B8A18B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
@@ -205,16 +198,11 @@
                 <g class="leaf-fade-in" style="animation-delay: 2.7s;"><circle cx="720" cy="495" r="4" fill="#B8A18B" /><circle cx="712" cy="504" r="2.8" fill="#B8A18B" /><circle cx="728" cy="502" r="2.8" fill="#B8A18B" /></g>
             </svg>
         </div>
-
         <div class="z-10 text-center reveal active w-full flex flex-col items-center">
-            <div class="relative flex flex-col items-center mb-2">
-                <span class="block font-serif text-5xl md:text-7xl text-japandi-ink uppercase tracking-hero text-center">ABOUT</span>
-                <span class="block font-serif text-5xl md:text-7xl text-japandi-ink uppercase tracking-hero mt-2 md:mt-4 text-center">US</span>
-            </div>
+            <div class="relative flex flex-col items-center mb-2"><span class="block font-serif text-5xl md:text-7xl text-japandi-ink uppercase tracking-hero text-center">ABOUT</span><span class="block font-serif text-5xl md:text-7xl text-japandi-ink uppercase tracking-hero mt-2 md:mt-4 text-center">US</span></div>
             <p class="font-sans font-light tracking-[0.6em] md:tracking-[0.8em] text-[10px] md:text-base uppercase text-japandi-oak mt-4">ABOUT TIME</p>
             <div class="mt-12 md:mt-16 reveal" style="animation-delay: 1.5s;"><p class="font-serif text-xs md:text-sm tracking-[0.5em] text-japandi-ink/40 uppercase">2026 . 04 . 29</p></div>
         </div>
-        
         <div class="absolute bottom-12 flex flex-col items-center"><div class="w-px h-12 bg-japandi-ink/20 mb-4"></div><span class="text-[9px] tracking-[0.5em] text-japandi-clay uppercase">Scroll</span></div>
     </section>
 
@@ -229,7 +217,7 @@
         <div class="max-w-5xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 reveal">
                 <div class="text-center md:text-left mb-8 md:mb-0">
-                    <p class="text-[10px] text-japandi-clay tracking-[0.4em] mb-4 uppercase">The Origins</p>
+                    <p class="text-[10px] text-japandi-clay tracking-[0.4em] mb-4 uppercase">THE ORIGINS</p>
                     <h3 class="font-serif text-2xl md:text-3xl tracking-widest text-japandi-ink">最初的起點</h3>
                     <p class="mt-4 font-sans font-light text-[11px] md:text-sm text-japandi-ink/50 leading-loose italic">「在兩條平行的時空裡，悄悄埋下了相遇的種子。」</p>
                 </div>
@@ -243,18 +231,15 @@
         </div>
     </section>
 
-    <!-- 04. 那年的我們 (Y型路徑) -->
+    <!-- 04. 那年的我們 -->
     <section class="py-24 px-6 bg-japandi-paper border-b border-japandi-clay/5 relative frequency-container reveal">
         <div class="max-w-xl mx-auto text-center relative">
             <h3 class="font-serif text-2xl md:text-3xl tracking-widest text-japandi-ink mb-2">那年的我們</h3>
             <p class="text-[10px] text-japandi-clay tracking-widest mb-16 uppercase">Vertical Convergence Path</p>
-            
             <div class="relative flex justify-center h-[650px] w-full">
                 <svg width="300" height="600" viewBox="0 0 300 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="overflow-visible">
                     <g font-family="Noto Serif TC" font-size="11" fill="#8E8680" letter-spacing="0.1em">
-                        <text x="150" y="20" text-anchor="middle">1989</text>
-                        <text x="150" y="150" text-anchor="middle">2005</text>
-                        <text x="150" y="280" text-anchor="middle">2015</text>
+                        <text x="150" y="20" text-anchor="middle">1989</text><text x="150" y="150" text-anchor="middle">2005</text><text x="150" y="280" text-anchor="middle">2015</text>
                         <text x="158" y="415" text-anchor="start" fill="#000000" font-weight="900" style="font-size: 13px;">2018.08.05</text>
                         <text x="150" y="580" text-anchor="middle">2026</text>
                     </g>
@@ -272,64 +257,36 @@
         </div>
     </section>
 
-    <!-- ✨ 05. 那片森林 (強化排版與飾紋) -->
+    <!-- 05. 那片森林 -->
     <section class="py-16 md:py-28 bg-japandi-paper border-b border-japandi-clay/10 relative overflow-hidden">
-        <!-- 背景等高線 -->
-        <div class="absolute inset-0 topo-line">
-            <svg width="100%" height="100%" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0,200 C200,150 400,300 600,200 C800,100 1000,250 1000,250" stroke="#3E3A37" fill="none" stroke-width="0.5" />
-                <path d="M0,450 C300,400 500,550 700,450 C900,350 1100,500 1100,500" stroke="#3E3A37" fill="none" stroke-width="0.4" opacity="0.6"/>
-                <path d="M-100,700 C200,650 400,800 600,700 C800,600 1000,750 1100,750" stroke="#3E3A37" fill="none" stroke-width="0.3" opacity="0.4"/>
-            </svg>
-        </div>
-
+        <div class="absolute inset-0 topo-line"><svg width="100%" height="100%" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M0,200 C200,150 400,300 600,200 C800,100 1000,250 1000,250" stroke="#3E3A37" fill="none" stroke-width="0.5" /><path d="M0,450 C300,400 500,550 700,450 C900,350 1100,500 1100,500" stroke="#3E3A37" fill="none" stroke-width="0.4" opacity="0.6"/></svg></div>
         <div class="max-w-5xl mx-auto px-6 relative z-10">
             <div class="reveal text-center mb-16 md:mb-24">
                 <p class="text-[10px] text-japandi-oak tracking-widest uppercase mb-4">THE GREAT OUTDOORS</p>
                 <h3 class="font-serif text-2xl md:text-3xl tracking-[0.3em] text-japandi-ink">那片森林</h3>
                 <p class="mt-6 font-sans font-light text-[11px] md:text-sm text-japandi-ink/50 leading-loose max-w-lg mx-auto italic px-4">「我們在山林間呼吸，感受大地最原始的共振。每一次攀登，都是一次心的洗禮。」</p>
             </div>
-
-            <!-- 手機版蜿蜒，電腦版網格 -->
-            <div class="relative flex flex-col items-center gap-12 md:grid md:grid-cols-4 md:gap-8 md:items-start" id="forest-grid">
-                <!-- 手機版步道虚線 -->
-                <div class="trail-line block md:hidden"></div>
-            </div>
+            <div class="relative flex flex-col items-center gap-12 md:grid md:grid-cols-4 md:gap-8 md:items-start" id="forest-grid"><div class="trail-line block md:hidden"></div></div>
         </div>
     </section>
 
     <!-- 06. 那段音樂 -->
     <section class="py-20 md:py-32 bg-japandi-accent/10 border-b border-japandi-clay/10 relative overflow-hidden">
-        <div class="absolute inset-0 music-wave">
-            <svg width="100%" height="100%" viewBox="0 0 1000 200" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0,100 Q50,20 100,100 T200,100 T300,100 T400,100 T500,100 T600,100 T700,100 T800,100 T900,100 T1000,100" stroke="#3E3A37" fill="none" stroke-width="0.5" />
-                <path d="M0,110 Q50,180 100,110 T200,110 T300,110 T400,110 T500,110 T600,110 T700,110 T800,110 T900,110 T1000,110" stroke="#3E3A37" fill="none" stroke-width="0.3" opacity="0.5"/>
-            </svg>
-        </div>
-
+        <div class="absolute inset-0 music-wave"><svg width="100%" height="100%" viewBox="0 0 1000 200" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q50,20 100,100 T200,100 T300,100 T400,100 T500,100 T600,100 T700,100 T800,100 T900,100 T1000,100" stroke="#3E3A37" fill="none" stroke-width="0.5" /></svg></div>
         <div class="max-w-full relative z-10">
             <div class="reveal text-center mb-8 md:mb-12 px-6">
                 <p class="text-[10px] text-japandi-oak tracking-widest uppercase mb-4">SONIC RESONANCE</p>
-                <h3 class="font-serif text-2xl md:text-3xl tracking-[0.3em] text-japandi-ink">那段音樂</h3>
+                <h3 class="font-serif text-2xl md:text-3xl tracking-widest text-japandi-ink mb-6">那段音樂</h3>
                 <p class="mt-4 font-sans font-light text-[11px] md:text-sm text-japandi-ink/50 leading-loose max-w-lg mx-auto italic">「那些旋律裡有我們共有的時間。翻動收藏，讓記憶在頻率中放大。」</p>
             </div>
-            
             <div class="music-stack-container hide-scrollbar" id="music-grid"></div>
-            
-            <div class="mt-4 px-12 reveal">
-                <div class="scroll-indicator-container"><div id="scroll-progress-bar"></div></div>
-                <p class="text-[8px] tracking-[0.5em] text-japandi-clay uppercase text-center mt-3 italic">Slide to Discover</p>
-            </div>
+            <div class="mt-4 px-12 reveal"><div class="scroll-indicator-container"><div id="scroll-progress-bar"></div></div><p class="text-[8px] tracking-[0.5em] text-japandi-clay uppercase text-center mt-3 italic">Slide to Discover</p></div>
         </div>
     </section>
 
     <!-- 07. 那些地方 -->
     <section class="py-16 md:py-28 bg-japandi-paper border-b border-japandi-clay/10 overflow-hidden relative">
-        <div class="absolute inset-0 geo-line">
-            <svg width="100%" height="100%" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="200" cy="100" r="1.5" fill="#3E3A37" opacity="0.5"/><circle cx="800" cy="400" r="1.5" fill="#3E3A37" opacity="0.5"/><path d="M200,100 L800,400" stroke="#3E3A37" stroke-width="0.3" stroke-dasharray="4 4" />
-            </svg>
-        </div>
+        <div class="absolute inset-0 geo-line"><svg width="100%" height="100%" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg"><path d="M200,100 L800,400" stroke="#3E3A37" stroke-width="0.3" stroke-dasharray="4 4" /></svg></div>
         <div class="max-w-6xl mx-auto px-6 relative z-10 text-center md:text-left">
             <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 reveal">
                 <div class="text-center md:text-left mb-8 md:mb-0">
@@ -389,10 +346,7 @@
             <svg width="1200" height="800" viewBox="0 0 1000 800" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[150%] md:w-full"><path class="line-art-path" d="M0,650 C200,600 350,700 500,580 C650,450 800,620 1000,550" stroke="#B8A18B" stroke-width="1.2" /></svg>
         </div>
         <div class="z-10 text-center reveal w-full flex flex-col items-center">
-            <div class="relative flex flex-col items-center mb-10 md:mb-16">
-                <span class="block font-serif text-4xl md:text-[7rem] text-japandi-ink uppercase tracking-hero leading-none">ABOUT</span>
-                <span class="block font-serif text-4xl md:text-[7rem] text-japandi-ink uppercase tracking-hero mt-2 md:mt-4 leading-none">TIME</span>
-            </div>
+            <div class="relative flex flex-col items-center mb-10 md:mb-16"><span class="block font-serif text-4xl md:text-[7rem] text-japandi-ink uppercase tracking-hero leading-none">ABOUT</span><span class="block font-serif text-4xl md:text-[7rem] text-japandi-ink uppercase tracking-hero mt-2 md:mt-4 leading-none">TIME</span></div>
             <div class="max-w-2xl px-6 mb-10 md:mb-16"><p class="font-serif text-xs md:text-lg leading-relaxed md:leading-loose text-japandi-ink/80 italic text-center">“For me, it was always going to be about love.”</p></div>
             <div class="flex flex-col items-center gap-4 md:gap-6 opacity-60 text-center"><p class="font-serif text-base tracking-widest text-japandi-ink">建誠 ＆ 奕昕</p><div class="w-8 md:w-12 h-px bg-japandi-ink/20"></div><p class="text-[8px] md:text-[9px] tracking-[0.6em] uppercase text-japandi-clay text-center px-4">The Resonance of Forever</p></div>
             <div class="mt-16 md:mt-32 cursor-pointer group" onclick="window.scrollTo({top:0, behavior:'smooth'})"><div class="flex flex-col items-center gap-3"><span class="text-[8px] tracking-[0.4em] uppercase text-japandi-clay opacity-0 group-hover:opacity-100 transition-all">Back to Top</span><div class="w-px h-10 md:h-12 bg-japandi-ink/10 group-hover:h-16 transition-all"></div></div></div>
@@ -404,7 +358,19 @@
     <script>
         const USER_PHOTOS = {
             dating: ["https://images.unsplash.com/photo-1516589174184-c685266e430c", "https://images.unsplash.com/photo-1510076857177-7470076d4098", "https://images.unsplash.com/photo-1520854221256-17451cc331bf", "https://images.unsplash.com/photo-1511285560929-80b456fea0bc", "https://images.unsplash.com/photo-1529636760656-e0926ad6c3a5", "https://images.unsplash.com/photo-1464349172904-7ed9bc297582", "https://images.unsplash.com/photo-1469334031218-e382a71b716b", "https://images.unsplash.com/photo-1473186578172-c141e6798ee4", "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8", "https://images.unsplash.com/photo-1482049016688-2d3e1b311543"],
-            childhoodGroom: Array(10).fill("").map((_,i) => `https://images.unsplash.com/photo-${1500000000000 + i*999}?q=80&w=800`),
+            // ✨ 已更新：建誠的四張測試照片
+            childhoodGroom: [
+                "https://raw.githubusercontent.com/harry3329/wedding-website/main/assets/origins/harry_01.webp",
+                "https://raw.githubusercontent.com/harry3329/wedding-website/main/assets/origins/harry_02.webp",
+                "https://raw.githubusercontent.com/harry3329/wedding-website/main/assets/origins/harry_03.webp",
+                "https://raw.githubusercontent.com/harry3329/wedding-website/main/assets/origins/harry_04.webp",
+                "https://images.unsplash.com/photo-1500000000004?q=80&w=800",
+                "https://images.unsplash.com/photo-1500000000005?q=80&w=800",
+                "https://images.unsplash.com/photo-1500000000006?q=80&w=800",
+                "https://images.unsplash.com/photo-1500000000007?q=80&w=800",
+                "https://images.unsplash.com/photo-1500000000008?q=80&w=800",
+                "https://images.unsplash.com/photo-1500000000009?q=80&w=800"
+            ],
             childhoodBride: Array(10).fill("").map((_,i) => `https://images.unsplash.com/photo-${1510000000000 + i*888}?q=80&w=800`),
             travelTaiwan: Array(10).fill("").map((_,i) => `https://images.unsplash.com/photo-${1500000000000 + i*111}?q=80&w=800`),
             travelJapan: Array(10).fill("").map((_,i) => `https://images.unsplash.com/photo-${1500000000000 + i*222}?q=80&w=800`),
@@ -422,9 +388,8 @@
                     const div = document.createElement('div');
                     if (isLively) {
                         const styles = [{ ratio: 'aspect-[3/4]', width: 'w-56 md:w-64' }, { ratio: 'aspect-square', width: 'w-48 md:w-60' }, { ratio: 'aspect-[4/3]', width: 'w-64 md:w-80' }];
-                        const style = styles[i % styles.length];
-                        div.className = `flex-shrink-0 ${style.width} cursor-pointer group transition-all duration-700 hover:z-20 hover:scale-105`;
-                        div.innerHTML = `<div class="${style.ratio} overflow-hidden bg-japandi-clay shadow-xl border-[6px] border-white"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"></div>`;
+                        div.className = `flex-shrink-0 ${styles[i % 3].width} cursor-pointer group transition-all duration-700 hover:z-20 hover:scale-105`;
+                        div.innerHTML = `<div class="${styles[i % 3].ratio} overflow-hidden bg-japandi-clay shadow-xl border-[6px] border-white"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"></div>`;
                     } else {
                         div.className = "flex-shrink-0 w-64 md:w-80 cursor-pointer";
                         div.innerHTML = `<div class="aspect-square bg-japandi-accent overflow-hidden shadow-sm transition-transform duration-700 hover:scale-105"><img src="${src}?q=80&w=800" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"></div>`;
@@ -434,155 +399,77 @@
                 });
             };
             createSet(); createSet();
-            let scrollPos = 0; let isHovering = false;
-            function step() {
-                if (!isHovering) { scrollPos += 0.5; if (scrollPos >= inner.scrollWidth / 2) scrollPos = 0; marquee.scrollLeft = scrollPos; }
-                requestAnimationFrame(step);
-            }
+            let scrollPos = 0, isHovering = false;
+            function step() { if (!isHovering) { scrollPos += 0.5; if (scrollPos >= inner.scrollWidth / 2) scrollPos = 0; marquee.scrollLeft = scrollPos; } requestAnimationFrame(step); }
             requestAnimationFrame(step);
-            marquee.addEventListener('mouseenter', () => isHovering = true); marquee.addEventListener('mouseleave', () => isHovering = false);
-            marquee.addEventListener('touchstart', () => isHovering = true); marquee.addEventListener('touchend', () => isHovering = false);
+            marquee.onmouseenter = () => isHovering = true; marquee.onmouseleave = () => isHovering = false;
         }
 
         function switchOrigin(target) {
-            document.getElementById('origin-groom').classList.toggle('hidden', target !== 'groom');
-            document.getElementById('origin-bride').classList.toggle('hidden', target !== 'bride');
-            document.getElementById('btn-groom').classList.toggle('active', target === 'groom');
-            document.getElementById('btn-bride').classList.toggle('active', target === 'bride');
+            document.getElementById('origin-groom').classList.toggle('hidden', target !== 'groom'); document.getElementById('origin-bride').classList.toggle('hidden', target !== 'bride');
+            document.getElementById('btn-groom').classList.toggle('active', target === 'groom'); document.getElementById('btn-bride').classList.toggle('active', target === 'bride');
             if (target === 'groom') setupMarquee('groom-inner', 'groom-marquee', USER_PHOTOS.childhoodGroom, '建誠');
             else setupMarquee('bride-inner', 'bride-marquee', USER_PHOTOS.childhoodBride, '奕昕');
         }
 
         function switchCountry(target) {
             ['taiwan', 'japan', 'philippines'].forEach(c => {
-                const el = document.getElementById(`journey-${c}`); if(el) el.classList.toggle('hidden', c !== target);
-                const btn = document.getElementById(`btn-${c}`); if(btn) btn.classList.toggle('active', c === target);
+                document.getElementById(`journey-${c}`).classList.toggle('hidden', c !== target); document.getElementById(`btn-${c}`).classList.toggle('active', c === target);
             });
-            const photos = target === 'taiwan' ? USER_PHOTOS.travelTaiwan : (target === 'japan' ? USER_PHOTOS.travelJapan : USER_PHOTOS.travelPhilippines);
-            setupMarquee(`${target}-inner`, `${target}-marquee`, photos, target.toUpperCase(), true);
+            setupMarquee(`${target}-inner`, `${target}-marquee`, USER_PHOTOS[`travel${target.charAt(0).toUpperCase() + target.slice(1)}`], target.toUpperCase(), true);
         }
 
-        function openModal(src, caption) { document.getElementById('modal-img').src = src; document.getElementById('modal-caption').innerText = caption; document.getElementById('image-modal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function openModal(src, cap) { document.getElementById('modal-img').src = src; document.getElementById('modal-caption').innerText = cap; document.getElementById('image-modal').classList.add('active'); document.body.style.overflow = 'hidden'; }
         function closeModal() { document.getElementById('image-modal').classList.remove('active'); document.body.style.overflow = ''; }
 
         document.addEventListener('DOMContentLoaded', () => {
             switchOrigin('groom'); switchCountry('taiwan');
-
-            // ✨ 那片森林：手寫排版邏輯確保 Serpentine
             const forestGrid = document.getElementById('forest-grid');
             USER_PHOTOS.hiking.forEach((src, i) => {
                 const div = document.createElement('div');
-                const rot = (i % 2 === 0 ? 'rotate-1' : '-rotate-1');
-                const currentRatio = ['aspect-[3/4]', 'aspect-square', 'aspect-[4/5]', 'aspect-[2/3]'][i % 4];
-                // 確保手機版有 forest-photo 類別以觸發 nth-child 排版
-                div.className = `reveal forest-photo w-64 md:w-full group cursor-pointer relative z-10 ${rot}`;
-                div.innerHTML = `<div class="${currentRatio} overflow-hidden bg-japandi-clay shadow-xl border-[6px] border-white rounded-sm"><img src="${src}" class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"></div><div class="mt-3 flex justify-between items-center px-1 opacity-40"><span class="text-[7px] tracking-widest uppercase">Path 0${i+1}</span><span class="text-[7px] font-serif italic">Elev. 2${i}00m</span></div>`;
-                div.onclick = () => openModal(src, `那片森林的回憶 0${i+1}`);
+                div.className = `reveal forest-photo w-64 md:w-full group cursor-pointer relative z-10 ${i % 2 === 0 ? 'rotate-1' : '-rotate-1'}`;
+                div.innerHTML = `<div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-xl border-[6px] border-white rounded-sm"><img src="${src}" class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"></div><div class="mt-3 flex justify-between items-center px-1 opacity-40 text-[7px] tracking-widest uppercase"><span>Path 0${i+1}</span><span>Elev. 2${i}00m</span></div>`;
+                div.onclick = () => openModal(src, `森林回憶 0${i+1}`);
                 forestGrid.appendChild(div);
             });
-
-            // 音樂區塊：漸進式縮放與自動播放
-            const musicGrid = document.getElementById('music-grid');
-            const progressBar = document.getElementById('scroll-progress-bar');
-            let isUserInteracting = false;
-            let currentMusicIndex = 0;
-
+            const musicGrid = document.getElementById('music-grid'), progressBar = document.getElementById('scroll-progress-bar');
+            let isUserInteracting = false, currentMusicIndex = 0;
             USER_PHOTOS.music.forEach((src, i) => {
                 const div = document.createElement('div');
                 div.className = "music-item reveal";
-                div.innerHTML = `<div class="music-photo-box cursor-pointer" onclick="openModal('${src}', '那段音樂的頻率 0${i+1}')"><img src="${src}" class="w-full h-full object-cover opacity-95 transition-all duration-700"></div><div class="mt-8 flex flex-col items-center gap-2 opacity-30"><span class="text-[9px] tracking-[0.4em] uppercase font-sans">Sequence 0${i+1}</span></div>`;
+                div.innerHTML = `<div class="music-photo-box cursor-pointer" onclick="openModal('${src}', '音樂頻率 0${i+1}')"><img src="${src}" class="w-full h-full object-cover opacity-95 transition-all duration-700"></div><div class="mt-8 flex flex-col items-center gap-2 opacity-30 text-[9px] uppercase tracking-[0.4em]">Sequence 0${i+1}</div>`;
                 musicGrid.appendChild(div);
             });
-
             const updateMusicProgressiveScale = () => {
-                const items = musicGrid.querySelectorAll('.music-item');
-                const containerWidth = musicGrid.offsetWidth;
-                const containerCenter = musicGrid.scrollLeft + containerWidth / 2;
-                const activeRange = containerWidth * 0.4; 
-
+                const items = musicGrid.querySelectorAll('.music-item'), containerCenter = musicGrid.scrollLeft + musicGrid.offsetWidth / 2, activeRange = musicGrid.offsetWidth * 0.4;
                 items.forEach(item => {
-                    const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-                    const distance = Math.abs(containerCenter - itemCenter);
-                    let scale = 1.0;
-                    if (distance < activeRange) {
-                        const ratio = 1 - (distance / activeRange);
-                        scale = 1 + (ratio * 0.4); 
-                    }
+                    const distance = Math.abs(containerCenter - (item.offsetLeft + item.offsetWidth / 2));
+                    let scale = distance < activeRange ? 1 + (1 - (distance / activeRange)) * 0.4 : 1.0;
                     item.style.transform = `scale(${scale}) translateY(-${(scale-1)*50}px)`;
                     item.style.zIndex = Math.round(scale * 10);
-                    const box = item.querySelector('.music-photo-box');
-                    if(scale > 1.2) {
-                        box.style.borderColor = '#3E3A37';
-                        box.style.boxShadow = `0 ${20 * (scale-1)*4}px ${40 * (scale-1)*4}px rgba(0,0,0,0.4)`;
-                    } else {
-                        box.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
-                    }
+                    item.querySelector('.music-photo-box').style.boxShadow = scale > 1.2 ? `0 ${80*(scale-1)}px ${160*(scale-1)}px rgba(0,0,0,0.4)` : '0 10px 30px rgba(0,0,0,0.1)';
                 });
-
-                const scrollMax = musicGrid.scrollWidth - containerWidth;
-                const progress = musicGrid.scrollLeft / (scrollMax || 1);
-                progressBar.style.transform = `scaleX(${progress})`;
+                progressBar.style.transform = `scaleX(${musicGrid.scrollLeft / (musicGrid.scrollWidth - musicGrid.offsetWidth)})`;
             };
-
-            musicGrid.addEventListener('scroll', updateMusicProgressiveScale);
-            setTimeout(updateMusicProgressiveScale, 100);
-
-            const autoPlay = () => {
+            musicGrid.onscroll = updateMusicProgressiveScale;
+            let autoPlayTimer = setInterval(() => {
                 if (isUserInteracting) return;
                 const items = musicGrid.querySelectorAll('.music-item');
                 currentMusicIndex = (currentMusicIndex + 1) % items.length;
                 const target = items[currentMusicIndex];
-                const targetLeft = target.offsetLeft - (musicGrid.offsetWidth / 2) + (target.offsetWidth / 2);
-                musicGrid.scrollTo({ left: targetLeft, behavior: 'smooth' });
-            };
-            let autoPlayTimer = setInterval(autoPlay, 4000);
-            const stopAuto = () => { isUserInteracting = true; clearInterval(autoPlayTimer); };
-            const resumeAuto = () => { isUserInteracting = false; autoPlayTimer = setInterval(autoPlay, 4000); };
-            musicGrid.addEventListener('mouseenter', stopAuto); musicGrid.addEventListener('mouseleave', resumeAuto);
-            musicGrid.addEventListener('touchstart', stopAuto); musicGrid.addEventListener('touchend', resumeAuto);
-
-            // 日常、美好、約定
-            const ds = document.getElementById('dating-slider');
+                musicGrid.scrollTo({ left: target.offsetLeft - (musicGrid.offsetWidth / 2) + (target.offsetWidth / 2), behavior: 'smooth' });
+            }, 4000);
+            musicGrid.onmouseenter = musicGrid.ontouchstart = () => isUserInteracting = true;
+            musicGrid.onmouseleave = musicGrid.ontouchend = () => isUserInteracting = false;
+            const ds = document.getElementById('dating-slider'), gallery = document.getElementById('wedding-gallery'), thumbSlider = document.getElementById('proposal-thumb-slider');
             USER_PHOTOS.dating.forEach((src, i) => {
-                const div = document.createElement('div');
-                div.className = "flex-shrink-0 w-52 md:w-80 snap-center group cursor-pointer";
-                div.onclick = () => openModal(src, `日常片段 ${i+1}`);
-                div.innerHTML = `<div class="aspect-[4/5] overflow-hidden mb-4 bg-japandi-clay shadow-lg"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"></div><p class="font-serif text-[9px] text-japandi-oak text-center tracking-widest uppercase text-xs">MOMENT ${String(i+1).padStart(2,'0')}</p>`;
-                ds.appendChild(div);
+                ds.innerHTML += `<div class="flex-shrink-0 w-52 md:w-80 snap-center group cursor-pointer" onclick="openModal('${src}','日常 ${i+1}')"><div class="aspect-[4/5] overflow-hidden mb-4 bg-japandi-clay shadow-lg"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 transition-all duration-700"></div><p class="font-serif text-[9px] text-japandi-oak text-center tracking-widest uppercase">MOMENT ${String(i+1).padStart(2,'0')}</p></div>`;
+                gallery.innerHTML += `<div class="flex-shrink-0 snap-center cursor-pointer group w-64 md:w-96" onclick="openModal('${src}','婚紗 ${i+1}')"><div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-sm"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 transition-all duration-1000"></div></div>`;
+                if(i<8) thumbSlider.innerHTML += `<div class="flex-shrink-0 w-28 md:w-48 snap-center group cursor-pointer" onclick="openModal('${src}','約定 ${i+1}')"><div class="aspect-[4/3] overflow-hidden bg-japandi-clay shadow-sm rounded-sm"><img src="${src}" class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"></div></div>`;
             });
-
-            const gallery = document.getElementById('wedding-gallery');
-            USER_PHOTOS.dating.forEach((src, i) => {
-                const div = document.createElement('div');
-                div.className = "flex-shrink-0 snap-center cursor-pointer group w-64 md:w-96";
-                div.onclick = () => openModal(src, `婚紗紀錄 ${i+1}`);
-                div.innerHTML = `<div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-sm"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"></div>`;
-                gallery.appendChild(div);
-            });
-
-            const thumbSlider = document.getElementById('proposal-thumb-slider');
-            USER_PHOTOS.dating.slice(0, 8).forEach((src, i) => {
-                const div = document.createElement('div');
-                div.className = "flex-shrink-0 w-28 md:w-48 snap-center group cursor-pointer";
-                div.onclick = () => openModal(src, `求婚瞬間 ${i+1}`);
-                div.innerHTML = `<div class="aspect-[4/3] overflow-hidden bg-japandi-clay shadow-sm rounded-sm transition-transform hover:scale-105 duration-500"><img src="${src}" class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"></div>`;
-                thumbSlider.appendChild(div);
-            });
-
-            const observer = new IntersectionObserver(entries => { 
-                entries.forEach(entry => { 
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        if (entry.target.classList.contains('frequency-container')) {
-                            entry.target.querySelectorAll('.frequency-path').forEach(p => p.style.strokeDashoffset = "0");
-                        }
-                    }
-                }); 
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-            const cursor = document.getElementById('cursor');
-            document.addEventListener('mousemove', (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+            const obs = new IntersectionObserver(ents => ents.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); if(e.target.classList.contains('frequency-container')) e.target.querySelectorAll('.frequency-path').forEach(p => p.style.strokeDashoffset="0"); } }), { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+            document.onmousemove = (e) => { const c = document.getElementById('cursor'); c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px'; };
         });
     </script>
 </body>
