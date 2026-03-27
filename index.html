@@ -269,7 +269,7 @@
         <div class="absolute inset-0 opacity-10">
             <img src="https://images.unsplash.com/photo-1518131394553-c46bc17d1d40?q=80&w=2070" class="w-full h-full object-cover grayscale blur-md" alt="背景">
         </div>
-        <div class="absolute inset-x-0 bottom-0 z-0 flex items-end justify-center translate-y-28 md:translate-y-40 pointer-events-none artifact-float">
+        <div class="absolute inset-x-0 bottom-0 z-0 flex items-end justify-center translate-y-48 md:translate-y-[15rem] pointer-events-none artifact-float">
             <svg width="1200" height="800" viewBox="0 0 1000 800" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[140%] md:w-full opacity-60">
                 <path class="line-art-path" d="M0,620 C150,580 250,680 400,550 C550,420 700,580 850,480 C950,410 1000,450 1000,450" stroke="#828A76" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
                 <path class="line-art-path" d="M100,680 C300,580 450,650 600,520 C750,390 900,550 1000,500" stroke="#828A76" stroke-width="1.0" stroke-dasharray="8 4" opacity="0.8" style="animation-delay: 0.5s;" />
@@ -284,14 +284,14 @@
         <div class="z-10 text-center reveal active w-full flex flex-col items-center">
             <div class="relative flex flex-col items-center mb-2"><span class="block font-serif text-5xl md:text-7xl text-japandi-ink uppercase tracking-hero text-center">ABOUT</span><span class="block font-serif text-5xl md:text-7xl text-japandi-ink uppercase tracking-hero mt-2 md:mt-4 text-center">US</span></div>
             <p class="font-sans font-light tracking-[0.6em] md:tracking-[0.8em] text-[10px] md:text-base uppercase text-japandi-oak mt-4">ABOUT TIME</p>
-            <div class="mt-24 md:mt-32 reveal" style="animation-delay: 1.5s;"><p class="font-serif text-xs md:text-sm tracking-[0.5em] text-japandi-ink/40 uppercase">2026 . 04 . 29</p></div>
+            <div class="mt-48 md:mt-64 reveal" style="animation-delay: 1.5s;"><p class="font-serif text-xs md:text-sm tracking-[0.5em] text-japandi-ink/40 uppercase">2026 . 04 . 29</p></div>
         </div>
         <div class="absolute bottom-12 flex flex-col items-center"><div class="w-px h-12 bg-japandi-ink/20 mb-4"></div><span class="text-[9px] tracking-[0.5em] text-japandi-clay uppercase">Scroll</span></div>
     </section>
 
     <!-- 02. Introduction -->
     <section id="intro" class="py-16 md:py-28 px-8 max-w-4xl mx-auto text-center reveal">
-        <h2 class="font-serif text-lg md:text-2xl md:leading-[2.8] leading-relaxed text-japandi-ink text-center">「我們生活的每一天，都在穿越時空，<br>我們能做的就是盡其所能，珍惜這趟不平凡的旅程。」</h2>
+        <h2 class="font-serif text-[15px] md:text-2xl md:leading-[2.8] leading-relaxed text-japandi-ink text-center">「我們生活的每一天，都在穿越時空，<br>我們能做的就是盡其所能，珍惜這趟不平凡的旅程。」</h2>
         <div class="w-12 h-px bg-japandi-oak mx-auto mt-10 opacity-30"></div>
     </section>
 
@@ -552,14 +552,19 @@
             };
             createSet(); createSet();
             let scrollPos = marquee.scrollLeft, isHovering = false, scrollTimer;
-            marquee.addEventListener('scroll', () => {
+            const pauseScroll = () => {
                 isHovering = true;
                 clearTimeout(scrollTimer);
                 scrollTimer = setTimeout(() => { 
                     isHovering = false; 
                     scrollPos = marquee.scrollLeft; 
                 }, 800);
-            });
+            };
+            
+            marquee.addEventListener('touchstart', pauseScroll, {passive: true});
+            marquee.addEventListener('touchmove', pauseScroll, {passive: true});
+            marquee.addEventListener('wheel', pauseScroll, {passive: true});
+            
             function step() { 
                 if (!isHovering) { 
                     scrollPos += 0.5; 
@@ -569,8 +574,8 @@
                 requestAnimationFrame(step); 
             }
             requestAnimationFrame(step);
-            marquee.onmouseenter = marquee.ontouchstart = () => { isHovering = true; clearTimeout(scrollTimer); }; 
-            marquee.onmouseleave = marquee.ontouchend = () => { 
+            marquee.onmouseenter = pauseScroll; 
+            marquee.onmouseleave = () => { 
                 clearTimeout(scrollTimer);
                 scrollTimer = setTimeout(() => { isHovering = false; scrollPos = marquee.scrollLeft; }, 800);
             };
