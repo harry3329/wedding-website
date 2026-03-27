@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW" class="scroll-smooth">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,7 +91,8 @@
         .tab-btn.active::after { width: 100%; }
         .tab-btn.active { color: #828A76; }
 
-        .marquee-container { display: flex; white-space: nowrap; overflow: hidden; width: 100%; }
+        .marquee-container { display: flex; white-space: nowrap; overflow-x: auto; width: 100%; scrollbar-width: none; -ms-overflow-style: none; }
+        .marquee-container::-webkit-scrollbar { display: none; }
         .marquee-inner { display: flex; gap: 32px; align-items: center; padding-right: 32px; }
 
         @keyframes leafFadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
@@ -234,9 +235,9 @@
         <!-- 右側：桌面版選單 -->
         <div class="hidden md:flex gap-8 items-center">
             <a href="#origins" class="nav-link font-serif text-xs tracking-widest js-scroll-link">起點</a>
-            <a href="#forest" class="nav-link font-serif text-xs tracking-widest js-scroll-link">森林</a>
+            <a href="#forest" class="nav-link font-serif text-xs tracking-widest js-scroll-link">山林</a>
             <a href="#music" class="nav-link font-serif text-xs tracking-widest js-scroll-link">音樂</a>
-            <a href="#places" class="nav-link font-serif text-xs tracking-widest js-scroll-link">地方</a>
+            <a href="#places" class="nav-link font-serif text-xs tracking-widest js-scroll-link">島嶼</a>
             <a href="#daily" class="nav-link font-serif text-xs tracking-widest js-scroll-link">日常</a>
             <a href="#promise" class="nav-link font-serif text-xs tracking-widest js-scroll-link">約定</a>
             <a href="#beauty" class="nav-link font-serif text-xs tracking-widest js-scroll-link">美好</a>
@@ -254,9 +255,9 @@
     <!-- 手機版右側下拉選單 -->
     <div id="mobile-menu" class="md:hidden flex flex-col space-y-6">
         <a href="#origins" class="font-serif text-sm tracking-[0.2em] text-japandi-ink hover:text-japandi-oak transition-colors block py-1 js-scroll-link">起點 / ORIGINS</a>
-        <a href="#forest" class="font-serif text-sm tracking-[0.2em] text-japandi-ink hover:text-japandi-oak transition-colors block py-1 js-scroll-link">森林 / FOREST</a>
+        <a href="#forest" class="font-serif text-sm tracking-[0.2em] text-japandi-ink hover:text-japandi-oak transition-colors block py-1 js-scroll-link">山林 / FOREST</a>
         <a href="#music" class="font-serif text-sm tracking-[0.2em] text-japandi-ink hover:text-japandi-oak transition-colors block py-1 js-scroll-link">音樂 / MUSIC</a>
-        <a href="#places" class="font-serif text-sm tracking-[0.2em] text-japandi-ink hover:text-japandi-oak transition-colors block py-1 js-scroll-link">地方 / PLACES</a>
+        <a href="#places" class="font-serif text-sm tracking-[0.2em] text-japandi-ink hover:text-japandi-oak transition-colors block py-1 js-scroll-link">島嶼 / ISLAND</a>
         <a href="#daily" class="font-serif text-sm tracking-[0.2em] text-japandi-ink hover:text-japandi-oak transition-colors block py-1 js-scroll-link">日常 / DAILY</a>
         <a href="#promise" class="font-serif text-sm tracking-[0.2em] text-japandi-ink hover:text-japandi-oak transition-colors block py-1 js-scroll-link">約定 / PROMISE</a>
         <a href="#beauty" class="font-serif text-sm tracking-[0.2em] text-japandi-ink hover:text-japandi-oak transition-colors block py-1 js-scroll-link">美好 / BEAUTY</a>
@@ -344,7 +345,7 @@
         <div class="max-w-5xl mx-auto px-6 relative z-10">
             <div class="reveal text-center mb-16 md:mb-24">
                 <p class="text-[10px] text-japandi-oak tracking-widest uppercase mb-4">THE GREAT OUTDOORS</p>
-                <h3 class="font-serif text-2xl md:text-3xl tracking-[0.3em] text-japandi-ink">那片森林</h3>
+                <h3 class="font-serif text-2xl md:text-3xl tracking-[0.3em] text-japandi-ink">那片山林</h3>
                 <p class="mt-6 font-sans font-light text-[11px] md:text-sm text-japandi-ink/50 leading-loose max-w-lg mx-auto italic px-4">「我們在山林間呼吸，感受大地最原始的共振。每一次攀登，都是一次心的洗禮。」</p>
             </div>
             <div class="relative flex flex-col items-center gap-12 md:grid md:grid-cols-4 md:gap-8 md:items-start" id="forest-grid"><div class="trail-line block md:hidden"></div></div>
@@ -372,7 +373,7 @@
             <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 reveal">
                 <div class="text-center md:text-left mb-8 md:mb-0">
                     <p class="text-[10px] text-japandi-clay tracking-[0.4em] mb-4 uppercase">THE JOURNEY</p>
-                    <h3 class="font-serif text-2xl md:text-3xl tracking-widest text-japandi-ink">那些地方</h3>
+                    <h3 class="font-serif text-2xl md:text-3xl tracking-widest text-japandi-ink">那座島嶼</h3>
                     <p class="mt-4 font-sans font-light text-[11px] md:text-sm text-japandi-ink/50 leading-loose italic">「地圖上的標記，是我們用腳步丈量的愛意。從島嶼到國境之南。」</p>
                 </div>
                 <div class="flex gap-6 md:gap-12 border-b border-japandi-ink/5 pb-2">
@@ -423,6 +424,9 @@
 
     <!-- 11. Ending Visual -->
     <section class="relative min-h-[85vh] flex flex-col justify-center items-center overflow-hidden bg-japandi-paper py-24 md:py-48 px-6 border-t border-japandi-clay/5">
+        <div class="absolute inset-0 opacity-[0.25] pointer-events-none z-0">
+            <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070" class="w-full h-full object-cover grayscale blur-[3px]" alt="結尾婚紗背景">
+        </div>
         <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-40 artifact-float">
             <svg width="1200" height="800" viewBox="0 0 1000 800" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[150%] md:w-full"><path class="line-art-path" d="M0,650 C200,600 350,700 500,580 C650,450 800,620 1000,550" stroke="#828A76" stroke-width="1.2" /></svg>
         </div>
@@ -434,7 +438,7 @@
         </div>
     </section>
 
-    <footer class="py-12 md:py-20 text-center bg-japandi-paper border-t border-japandi-clay/10"><p class="text-[8px] md:text-[9px] tracking-widest text-japandi-clay uppercase">© 2026 THE POST-ROCK WEDDING DOCUMENTARY.</p></footer>
+    <footer class="py-12 md:py-20 text-center bg-japandi-paper border-t border-japandi-clay/10"><p class="text-[8px] md:text-[9px] tracking-widest text-japandi-clay uppercase">© 2026 H&Y WEDDING DOCUMENTARY.</p></footer>
 
     <script>
         const USER_PHOTOS = {
@@ -473,9 +477,26 @@
             isScrolling = true;
             const headerOffset = window.innerWidth < 768 ? 70 : 100;
             const elementPosition = targetElement.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-            setTimeout(() => { isScrolling = false; }, 800);
+            const targetPosition = elementPosition + window.pageYOffset - headerOffset;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            const duration = 1200; 
+            let start = null;
+
+            window.requestAnimationFrame(function step(timestamp) {
+                if (!start) start = timestamp;
+                const progress = timestamp - start;
+                const ease = progress < duration / 2 
+                    ? 4 * Math.pow(progress / duration, 3) 
+                    : 1 - Math.pow(-2 * progress / duration + 2, 3) / 2;
+                window.scrollTo(0, startPosition + distance * ease);
+                if (progress < duration) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    window.scrollTo(0, targetPosition);
+                    isScrolling = false;
+                }
+            });
         }
 
         function toggleMenu(forceClose = false) {
@@ -529,10 +550,21 @@
                 });
             };
             createSet(); createSet();
-            let scrollPos = 0, isHovering = false;
-            function step() { if (!isHovering) { scrollPos += 0.5; if (scrollPos >= inner.scrollWidth / 2) scrollPos = 0; marquee.scrollLeft = scrollPos; } requestAnimationFrame(step); }
+            let scrollPos = marquee.scrollLeft, isHovering = false;
+            function step() { 
+                if (!isHovering) { 
+                    scrollPos += 0.5; 
+                    if (scrollPos >= inner.scrollWidth / 2) scrollPos -= inner.scrollWidth / 2; 
+                    marquee.scrollLeft = scrollPos; 
+                } else {
+                    if (marquee.scrollLeft >= inner.scrollWidth / 2) marquee.scrollLeft -= inner.scrollWidth / 2;
+                    scrollPos = marquee.scrollLeft;
+                }
+                requestAnimationFrame(step); 
+            }
             requestAnimationFrame(step);
-            marquee.onmouseenter = () => isHovering = true; marquee.onmouseleave = () => isHovering = false;
+            marquee.onmouseenter = marquee.ontouchstart = () => { isHovering = true; }; 
+            marquee.onmouseleave = marquee.ontouchend = () => { isHovering = false; };
         }
 
         function switchOrigin(target) {
@@ -566,7 +598,7 @@
                 const div = document.createElement('div');
                 div.className = `reveal forest-photo w-64 md:w-full group cursor-pointer relative z-10 ${i % 2 === 0 ? 'rotate-1' : '-rotate-1'}`;
                 div.innerHTML = `<div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-xl border-[6px] border-white rounded-sm"><img src="${src}" class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"></div><div class="mt-3 flex justify-between items-center px-1 opacity-40 text-[7px] tracking-widest uppercase"><span>Path 0${i+1}</span><span>Elev. 2${i}00m</span></div>`;
-                div.onclick = () => openModal(src, `森林回憶 0${i+1}`);
+                div.onclick = () => openModal(src, `山林回憶 0${i+1}`);
                 forestGrid.appendChild(div);
             });
             const musicGrid = document.getElementById('music-grid'), progressBar = document.getElementById('scroll-progress-bar');
