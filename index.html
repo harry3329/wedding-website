@@ -553,6 +553,19 @@
             if (targetInner && targetInner.childElementCount === 0) {
                 setupMarquee(`${target}-inner`, `${target}-marquee`, USER_PHOTOS[`travel${target.charAt(0).toUpperCase() + target.slice(1)}`], target.toUpperCase(), true);
             }
+        }
+
+        function openModal(src, cap) { document.getElementById('modal-img').src = src; document.getElementById('modal-caption').innerText = cap; document.getElementById('image-modal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeModal() { document.getElementById('image-modal').classList.remove('active'); document.body.style.overflow = ''; }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initNav();
+            switchOrigin('groom'); switchCountry('taiwan');
+            const forestGrid = document.getElementById('forest-grid');
+            USER_PHOTOS.hiking.forEach((src, i) => {
+                const div = document.createElement('div');
+                div.className = `reveal forest-photo w-64 md:w-full group cursor-pointer relative z-10 ${i % 2 === 0 ? 'rotate-1' : '-rotate-1'}`;
+                div.innerHTML = `<div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-xl border-[6px] border-white rounded-sm"><img src="${src}" class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"></div><div class="mt-3 flex justify-between items-center px-1 opacity-40 text-[7px] tracking-widest uppercase"><span>Path 0${i+1}</span><span>Elev. 2${i}00m</span></div>`;
                 div.onclick = () => openModal(src, `森林回憶 0${i+1}`);
                 forestGrid.appendChild(div);
             });
