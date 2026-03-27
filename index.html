@@ -92,7 +92,7 @@
         .tab-btn.active { color: #B8A18B; }
 
         .marquee-container { display: flex; white-space: nowrap; overflow: hidden; width: 100%; }
-        .marquee-inner { display: flex; gap: 32px; align-items: center; }
+        .marquee-inner { display: flex; gap: 32px; align-items: center; padding-right: 32px; }
 
         @keyframes leafFadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
         .leaf-fade-in { opacity: 0; animation: leafFadeIn 1.5s ease-out forwards; }
@@ -122,6 +122,7 @@
 
         .music-stack-container {
             display: flex;
+            position: relative;
             padding: 80px 50vw 60px 50vw; 
             overflow-x: auto;
             scroll-snap-type: x mandatory;
@@ -413,15 +414,21 @@
         function switchOrigin(target) {
             document.getElementById('origin-groom').classList.toggle('hidden', target !== 'groom'); document.getElementById('origin-bride').classList.toggle('hidden', target !== 'bride');
             document.getElementById('btn-groom').classList.toggle('active', target === 'groom'); document.getElementById('btn-bride').classList.toggle('active', target === 'bride');
-            if (target === 'groom') setupMarquee('groom-inner', 'groom-marquee', USER_PHOTOS.childhoodGroom, '建誠');
-            else setupMarquee('bride-inner', 'bride-marquee', USER_PHOTOS.childhoodBride, '奕昕');
+            const targetInner = document.getElementById(`${target}-inner`);
+            if (targetInner && targetInner.childElementCount === 0) {
+                if (target === 'groom') setupMarquee('groom-inner', 'groom-marquee', USER_PHOTOS.childhoodGroom, '建誠');
+                else setupMarquee('bride-inner', 'bride-marquee', USER_PHOTOS.childhoodBride, '奕昕');
+            }
         }
 
         function switchCountry(target) {
             ['taiwan', 'japan', 'philippines'].forEach(c => {
                 document.getElementById(`journey-${c}`).classList.toggle('hidden', c !== target); document.getElementById(`btn-${c}`).classList.toggle('active', c === target);
             });
-            setupMarquee(`${target}-inner`, `${target}-marquee`, USER_PHOTOS[`travel${target.charAt(0).toUpperCase() + target.slice(1)}`], target.toUpperCase(), true);
+            const targetInner = document.getElementById(`${target}-inner`);
+            if (targetInner && targetInner.childElementCount === 0) {
+                setupMarquee(`${target}-inner`, `${target}-marquee`, USER_PHOTOS[`travel${target.charAt(0).toUpperCase() + target.slice(1)}`], target.toUpperCase(), true);
+            }
         }
 
         function openModal(src, cap) { document.getElementById('modal-img').src = src; document.getElementById('modal-caption').innerText = cap; document.getElementById('image-modal').classList.add('active'); document.body.style.overflow = 'hidden'; }
@@ -457,6 +464,7 @@
                 progressBar.style.transform = `scaleX(${musicGrid.scrollLeft / (musicGrid.scrollWidth - musicGrid.offsetWidth)})`;
             };
             musicGrid.onscroll = updateMusicProgressiveScale;
+            updateMusicProgressiveScale();
             let autoPlayTimer = setInterval(() => {
                 if (isUserInteracting) return;
                 const items = musicGrid.querySelectorAll('.music-item');
@@ -467,11 +475,15 @@
             musicGrid.onmouseenter = musicGrid.ontouchstart = () => isUserInteracting = true;
             musicGrid.onmouseleave = musicGrid.ontouchend = () => isUserInteracting = false;
             const ds = document.getElementById('dating-slider'), gallery = document.getElementById('wedding-gallery'), thumbSlider = document.getElementById('proposal-thumb-slider');
+            const dsHtml = [], galleryHtml = [], thumbSliderHtml = [];
             USER_PHOTOS.dating.forEach((src, i) => {
-                ds.innerHTML += `<div class="flex-shrink-0 w-52 md:w-80 snap-center group cursor-pointer" onclick="openModal('${src}','日常 ${i+1}')"><div class="aspect-[4/5] overflow-hidden mb-4 bg-japandi-clay shadow-lg"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 transition-all duration-700"></div><p class="font-serif text-[9px] text-japandi-oak text-center tracking-widest uppercase">MOMENT ${String(i+1).padStart(2,'0')}</p></div>`;
-                gallery.innerHTML += `<div class="flex-shrink-0 snap-center cursor-pointer group w-64 md:w-96" onclick="openModal('${src}','婚紗 ${i+1}')"><div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-sm"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 transition-all duration-1000"></div></div>`;
-                if(i<8) thumbSlider.innerHTML += `<div class="flex-shrink-0 w-28 md:w-48 snap-center group cursor-pointer" onclick="openModal('${src}','約定 ${i+1}')"><div class="aspect-[4/3] overflow-hidden bg-japandi-clay shadow-sm rounded-sm"><img src="${src}" class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"></div></div>`;
+                dsHtml.push(`<div class="flex-shrink-0 w-52 md:w-80 snap-center group cursor-pointer" onclick="openModal('${src}','日常 ${i+1}')"><div class="aspect-[4/5] overflow-hidden mb-4 bg-japandi-clay shadow-lg"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 transition-all duration-700"></div><p class="font-serif text-[9px] text-japandi-oak text-center tracking-widest uppercase">MOMENT ${String(i+1).padStart(2,'0')}</p></div>`);
+                galleryHtml.push(`<div class="flex-shrink-0 snap-center cursor-pointer group w-64 md:w-96" onclick="openModal('${src}','婚紗 ${i+1}')"><div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-sm"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 transition-all duration-1000"></div></div>`);
+                if(i<8) thumbSliderHtml.push(`<div class="flex-shrink-0 w-28 md:w-48 snap-center group cursor-pointer" onclick="openModal('${src}','約定 ${i+1}')"><div class="aspect-[4/3] overflow-hidden bg-japandi-clay shadow-sm rounded-sm"><img src="${src}" class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"></div></div>`);
             });
+            ds.innerHTML = dsHtml.join('');
+            gallery.innerHTML = galleryHtml.join('');
+            thumbSlider.innerHTML = thumbSliderHtml.join('');
             const obs = new IntersectionObserver(ents => ents.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); if(e.target.classList.contains('frequency-container')) e.target.querySelectorAll('.frequency-path').forEach(p => p.style.strokeDashoffset="0"); } }), { threshold: 0.1 });
             document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
             document.onmousemove = (e) => { const c = document.getElementById('cursor'); c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px'; };
