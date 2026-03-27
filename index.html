@@ -107,19 +107,7 @@
             stroke-dashoffset: 0;
         }
 
-        @media (max-width: 768px) {
-            .forest-photo:nth-child(odd) { align-self: flex-start; padding-left: 5%; }
-            .forest-photo:nth-child(even) { align-self: flex-end; padding-right: 5%; }
-            .trail-line {
-                position: absolute;
-                top: 0; left: 50%;
-                width: 1px; height: 100%;
-                background-image: linear-gradient(to bottom, #828A76 50%, transparent 50%);
-                background-size: 1px 12px;
-                opacity: 0.15;
-                z-index: 0;
-            }
-        }
+
 
         .music-stack-container {
             display: flex;
@@ -220,10 +208,23 @@
 
     <div id="cursor" class="custom-cursor hidden md:block"></div>
 
-    <div id="image-modal" class="fixed inset-0 z-[100] bg-japandi-paper/95 backdrop-blur-sm opacity-0 invisible flex items-center justify-center p-6 md:p-12 cursor-pointer" onclick="closeModal()">
-        <div class="relative max-w-5xl max-h-full">
-            <img id="modal-img" src="" alt="放大檢視" class="w-full h-auto max-h-[85vh] object-contain shadow-2xl rounded-sm">
-            <p id="modal-caption" class="font-serif text-center mt-6 text-japandi-ink tracking-widest text-sm"></p>
+    <div id="image-modal" class="fixed inset-0 z-[100] bg-japandi-paper/95 backdrop-blur-md opacity-0 invisible flex items-center justify-center p-6 md:p-12 transition-all duration-500">
+        <!-- Close Button -->
+        <button onclick="closeModal()" class="absolute top-6 right-6 md:top-10 md:right-10 text-japandi-ink z-50 p-3 hover:opacity-50 transition-opacity bg-white/50 rounded-full backdrop-blur-md">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <!-- Prev Button -->
+        <button id="modal-prev" class="absolute left-2 md:left-10 top-1/2 -translate-y-1/2 text-japandi-ink z-50 p-4 hover:opacity-50 transition-opacity hidden bg-white/20 rounded-full backdrop-blur-sm">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <!-- Next Button -->
+        <button id="modal-next" class="absolute right-2 md:right-10 top-1/2 -translate-y-1/2 text-japandi-ink z-50 p-4 hover:opacity-50 transition-opacity hidden bg-white/20 rounded-full backdrop-blur-sm">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
+        <div class="relative w-full max-w-5xl max-h-full flex flex-col items-center justify-center pointer-events-none">
+            <img id="modal-img" src="" alt="放大檢視" class="w-auto h-auto max-h-[80vh] max-w-full object-contain shadow-2xl rounded-sm pointer-events-auto transition-opacity duration-300">
+            <p id="modal-caption" class="font-serif text-center mt-6 text-japandi-ink tracking-widest text-sm pointer-events-auto"></p>
         </div>
     </div>
 
@@ -268,7 +269,7 @@
         <div class="absolute inset-0 opacity-10">
             <img src="https://images.unsplash.com/photo-1518131394553-c46bc17d1d40?q=80&w=2070" class="w-full h-full object-cover grayscale blur-md" alt="背景">
         </div>
-        <div class="absolute inset-x-0 bottom-0 z-0 flex items-end justify-center translate-y-12 md:translate-y-20 pointer-events-none artifact-float">
+        <div class="absolute inset-x-0 bottom-0 z-0 flex items-end justify-center translate-y-28 md:translate-y-40 pointer-events-none artifact-float">
             <svg width="1200" height="800" viewBox="0 0 1000 800" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[140%] md:w-full opacity-60">
                 <path class="line-art-path" d="M0,620 C150,580 250,680 400,550 C550,420 700,580 850,480 C950,410 1000,450 1000,450" stroke="#828A76" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
                 <path class="line-art-path" d="M100,680 C300,580 450,650 600,520 C750,390 900,550 1000,500" stroke="#828A76" stroke-width="1.0" stroke-dasharray="8 4" opacity="0.8" style="animation-delay: 0.5s;" />
@@ -283,7 +284,7 @@
         <div class="z-10 text-center reveal active w-full flex flex-col items-center">
             <div class="relative flex flex-col items-center mb-2"><span class="block font-serif text-5xl md:text-7xl text-japandi-ink uppercase tracking-hero text-center">ABOUT</span><span class="block font-serif text-5xl md:text-7xl text-japandi-ink uppercase tracking-hero mt-2 md:mt-4 text-center">US</span></div>
             <p class="font-sans font-light tracking-[0.6em] md:tracking-[0.8em] text-[10px] md:text-base uppercase text-japandi-oak mt-4">ABOUT TIME</p>
-            <div class="mt-12 md:mt-16 reveal" style="animation-delay: 1.5s;"><p class="font-serif text-xs md:text-sm tracking-[0.5em] text-japandi-ink/40 uppercase">2026 . 04 . 29</p></div>
+            <div class="mt-24 md:mt-32 reveal" style="animation-delay: 1.5s;"><p class="font-serif text-xs md:text-sm tracking-[0.5em] text-japandi-ink/40 uppercase">2026 . 04 . 29</p></div>
         </div>
         <div class="absolute bottom-12 flex flex-col items-center"><div class="w-px h-12 bg-japandi-ink/20 mb-4"></div><span class="text-[9px] tracking-[0.5em] text-japandi-clay uppercase">Scroll</span></div>
     </section>
@@ -348,7 +349,7 @@
                 <h3 class="font-serif text-2xl md:text-3xl tracking-[0.3em] text-japandi-ink">那片山林</h3>
                 <p class="mt-6 font-sans font-light text-[11px] md:text-sm text-japandi-ink/50 leading-loose max-w-lg mx-auto italic px-4">「我們在山林間呼吸，感受大地最原始的共振。每一次攀登，都是一次心的洗禮。」</p>
             </div>
-            <div class="relative flex flex-col items-center gap-12 md:grid md:grid-cols-4 md:gap-8 md:items-start" id="forest-grid"><div class="trail-line block md:hidden"></div></div>
+            <div class="relative grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 gap-y-12 md:gap-y-16 items-start" id="forest-grid"></div>
         </div>
     </section>
 
@@ -545,26 +546,34 @@
                         div.className = "flex-shrink-0 w-64 md:w-80 cursor-pointer";
                         div.innerHTML = `<div class="aspect-square bg-japandi-accent overflow-hidden shadow-sm transition-transform duration-700 hover:scale-105"><img src="${src}?q=80&w=800" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"></div>`;
                     }
-                    div.onclick = () => openModal(src, `${personName} 的片段`);
+                    div.onclick = () => openLightbox(photos.map((s, idx) => ({src: s, cap: `${personName} 的片段 ${idx+1}`})), i);
                     inner.appendChild(div);
                 });
             };
             createSet(); createSet();
-            let scrollPos = marquee.scrollLeft, isHovering = false;
+            let scrollPos = marquee.scrollLeft, isHovering = false, scrollTimer;
+            marquee.addEventListener('scroll', () => {
+                isHovering = true;
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(() => { 
+                    isHovering = false; 
+                    scrollPos = marquee.scrollLeft; 
+                }, 800);
+            });
             function step() { 
                 if (!isHovering) { 
                     scrollPos += 0.5; 
                     if (scrollPos >= inner.scrollWidth / 2) scrollPos -= inner.scrollWidth / 2; 
                     marquee.scrollLeft = scrollPos; 
-                } else {
-                    if (marquee.scrollLeft >= inner.scrollWidth / 2) marquee.scrollLeft -= inner.scrollWidth / 2;
-                    scrollPos = marquee.scrollLeft;
                 }
                 requestAnimationFrame(step); 
             }
             requestAnimationFrame(step);
-            marquee.onmouseenter = marquee.ontouchstart = () => { isHovering = true; }; 
-            marquee.onmouseleave = marquee.ontouchend = () => { isHovering = false; };
+            marquee.onmouseenter = marquee.ontouchstart = () => { isHovering = true; clearTimeout(scrollTimer); }; 
+            marquee.onmouseleave = marquee.ontouchend = () => { 
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(() => { isHovering = false; scrollPos = marquee.scrollLeft; }, 800);
+            };
         }
 
         function switchOrigin(target) {
@@ -587,26 +596,64 @@
             }
         }
 
-        function openModal(src, cap) { document.getElementById('modal-img').src = src; document.getElementById('modal-caption').innerText = cap; document.getElementById('image-modal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        let lightboxGroup = [], lightboxIndex = 0;
+        function openLightbox(group, index) {
+            lightboxGroup = group; lightboxIndex = index;
+            updateLightboxView();
+            document.getElementById('image-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            const prevBtn = document.getElementById('modal-prev');
+            const nextBtn = document.getElementById('modal-next');
+            if (group.length > 1) { prevBtn.classList.remove('hidden'); nextBtn.classList.remove('hidden'); } 
+            else { prevBtn.classList.add('hidden'); nextBtn.classList.add('hidden'); }
+        }
+        function openModal(src, cap) { openLightbox([{src, cap}], 0); }
         function closeModal() { document.getElementById('image-modal').classList.remove('active'); document.body.style.overflow = ''; }
+        function updateLightboxView() {
+            if (!lightboxGroup || lightboxGroup.length === 0) return;
+            const item = lightboxGroup[lightboxIndex];
+            const img = document.getElementById('modal-img');
+            img.style.opacity = 0;
+            setTimeout(() => {
+                img.src = item.src;
+                document.getElementById('modal-caption').innerText = item.cap;
+                img.onload = () => img.style.opacity = 1;
+            }, 150);
+        }
+        function lightboxPrev() { lightboxIndex = (lightboxIndex - 1 + lightboxGroup.length) % lightboxGroup.length; updateLightboxView(); }
+        function lightboxNext() { lightboxIndex = (lightboxIndex + 1) % lightboxGroup.length; updateLightboxView(); }
 
         document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('modal-prev').onclick = (e) => { e.stopPropagation(); lightboxPrev(); };
+            document.getElementById('modal-next').onclick = (e) => { e.stopPropagation(); lightboxNext(); };
+            document.getElementById('image-modal').onclick = (e) => { if (e.target.id === 'image-modal') closeModal(); };
             initNav();
             switchOrigin('groom'); switchCountry('taiwan');
             const forestGrid = document.getElementById('forest-grid');
+            // Populate SVG dash line in center
+            forestGrid.innerHTML = `<div class="absolute top-0 bottom-0 left-1/2 w-px border-l border-dashed border-japandi-oak/40 transform -translate-x-1/2 z-0 hidden md:block"></div>
+                <div class="absolute top-0 bottom-0 left-1/2 w-px border-l border-dashed border-japandi-oak/30 transform -translate-x-1/2 z-0 block md:hidden"></div>`;
+            
+            const hikingGallery = USER_PHOTOS.hiking.map((src, i) => ({ src, cap: `山林回憶 0${i+1}` }));
+            
             USER_PHOTOS.hiking.forEach((src, i) => {
                 const div = document.createElement('div');
-                div.className = `reveal forest-photo w-64 md:w-full group cursor-pointer relative z-10 ${i % 2 === 0 ? 'rotate-1' : '-rotate-1'}`;
-                div.innerHTML = `<div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-xl border-[6px] border-white rounded-sm"><img src="${src}" class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"></div><div class="mt-3 flex justify-between items-center px-1 opacity-40 text-[7px] tracking-widest uppercase"><span>Path 0${i+1}</span><span>Elev. 2${i}00m</span></div>`;
-                div.onclick = () => openModal(src, `山林回憶 0${i+1}`);
+                const isEven = i % 2 === 0;
+                // Add staggered vertical offset
+                const offsetClass = isEven ? 'md:mt-0 mt-0' : 'md:mt-12 mt-8';
+                div.className = `reveal forest-photo w-full group cursor-pointer relative z-10 ${offsetClass} ${i % 2 === 0 ? 'rotate-1' : '-rotate-1'}`;
+                div.innerHTML = `<div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-xl border-[4px] md:border-[6px] border-white rounded-sm"><img src="${src}" class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"></div><div class="mt-3 flex justify-between items-center px-1 opacity-40 text-[7px] tracking-widest uppercase"><span>Path 0${i+1}</span><span>Elev. 2${i%5}00m</span></div>`;
+                div.onclick = () => openLightbox(hikingGallery, i);
                 forestGrid.appendChild(div);
             });
             const musicGrid = document.getElementById('music-grid'), progressBar = document.getElementById('scroll-progress-bar');
             let isUserInteracting = false, currentMusicIndex = 0;
+            const musicGallery = USER_PHOTOS.music.map((src, i) => ({ src, cap: `音樂頻率 0${i+1}` }));
             USER_PHOTOS.music.forEach((src, i) => {
                 const div = document.createElement('div');
                 div.className = "music-item reveal";
-                div.innerHTML = `<div class="music-photo-box cursor-pointer" onclick="openModal('${src}', '音樂頻率 0${i+1}')"><img src="${src}" class="w-full h-full object-cover opacity-95 transition-all duration-700"></div><div class="mt-8 flex flex-col items-center gap-2 opacity-30 text-[9px] uppercase tracking-[0.4em]">Sequence 0${i+1}</div>`;
+                div.innerHTML = `<div class="music-photo-box cursor-pointer" onclick="openLightbox(musicGallery, ${i})"><img src="${src}" class="w-full h-full object-cover opacity-95 transition-all duration-700"></div><div class="mt-8 flex flex-col items-center gap-2 opacity-30 text-[9px] uppercase tracking-[0.4em]">Sequence 0${i+1}</div>`;
                 musicGrid.appendChild(div);
             });
             const updateMusicProgressiveScale = () => {
@@ -633,10 +680,13 @@
             musicGrid.onmouseleave = musicGrid.ontouchend = () => isUserInteracting = false;
             const ds = document.getElementById('dating-slider'), gallery = document.getElementById('wedding-gallery'), thumbSlider = document.getElementById('proposal-thumb-slider');
             const dsHtml = [], galleryHtml = [], thumbSliderHtml = [];
+            const datingGallery = USER_PHOTOS.dating.map((src, i) => ({ src, cap: `日常 ${i+1}` }));
+            const weddingGallery = USER_PHOTOS.dating.map((src, i) => ({ src, cap: `婚紗 ${i+1}` }));
+            const proposalGallery = USER_PHOTOS.dating.slice(0, 8).map((src, i) => ({ src, cap: `約定 ${i+1}` }));
             USER_PHOTOS.dating.forEach((src, i) => {
-                dsHtml.push(`<div class="flex-shrink-0 w-52 md:w-80 snap-center group cursor-pointer" onclick="openModal('${src}','日常 ${i+1}')"><div class="aspect-[4/5] overflow-hidden mb-4 bg-japandi-clay shadow-lg"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 transition-all duration-700"></div><p class="font-serif text-[9px] text-japandi-oak text-center tracking-widest uppercase">MOMENT ${String(i+1).padStart(2,'0')}</p></div>`);
-                galleryHtml.push(`<div class="flex-shrink-0 snap-center cursor-pointer group w-64 md:w-96" onclick="openModal('${src}','婚紗 ${i+1}')"><div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-sm"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 transition-all duration-1000"></div></div>`);
-                if(i<8) thumbSliderHtml.push(`<div class="flex-shrink-0 w-28 md:w-48 snap-center group cursor-pointer" onclick="openModal('${src}','約定 ${i+1}')"><div class="aspect-[4/3] overflow-hidden bg-japandi-clay shadow-sm rounded-sm"><img src="${src}" class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"></div></div>`);
+                dsHtml.push(`<div class="flex-shrink-0 w-52 md:w-80 snap-center group cursor-pointer" onclick="openLightbox(datingGallery, ${i})"><div class="aspect-[4/5] overflow-hidden mb-4 bg-japandi-clay shadow-lg"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 transition-all duration-700"></div><p class="font-serif text-[9px] text-japandi-oak text-center tracking-widest uppercase">MOMENT ${String(i+1).padStart(2,'0')}</p></div>`);
+                galleryHtml.push(`<div class="flex-shrink-0 snap-center cursor-pointer group w-64 md:w-96" onclick="openLightbox(weddingGallery, ${i})"><div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-sm"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 transition-all duration-1000"></div></div>`);
+                if(i<8) thumbSliderHtml.push(`<div class="flex-shrink-0 w-28 md:w-48 snap-center group cursor-pointer" onclick="openLightbox(proposalGallery, ${i})"><div class="aspect-[4/3] overflow-hidden bg-japandi-clay shadow-sm rounded-sm"><img src="${src}" class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"></div></div>`);
             });
             ds.innerHTML = dsHtml.join('');
             gallery.innerHTML = galleryHtml.join('');
