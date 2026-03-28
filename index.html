@@ -651,6 +651,20 @@
             else { prevBtn.classList.add('hidden'); nextBtn.classList.add('hidden'); }
         }
         function openModal(src, cap) { openLightbox([{src, cap}], 0); }
+        function nextImage() { if (lightboxGroup) openLightbox(lightboxGroup, (lightboxIndex + 1) % lightboxGroup.length); }
+        function prevImage() { if (lightboxGroup) openLightbox(lightboxGroup, (lightboxIndex - 1 + lightboxGroup.length) % lightboxGroup.length); }
+        
+        let touchStartX = 0;
+        const modalImg = document.getElementById('modal-img');
+        modalImg.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        modalImg.addEventListener('touchend', e => {
+            const touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 40) nextImage();
+            if (touchEndX - touchStartX > 40) prevImage();
+        }, {passive: true});
+        
+        document.getElementById('modal-next').onclick = (e) => { e.stopPropagation(); nextImage(); };
+        document.getElementById('modal-prev').onclick = (e) => { e.stopPropagation(); prevImage(); };
         function closeModal() { document.getElementById('image-modal').classList.remove('active'); document.body.style.overflow = ''; }
         function updateLightboxView() {
             if (!lightboxGroup || lightboxGroup.length === 0) return;
@@ -764,7 +778,69 @@
             
             const obs = new IntersectionObserver(ents => ents.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); if(e.target.classList.contains('frequency-container')) e.target.querySelectorAll('.frequency-path').forEach(p => p.style.strokeDashoffset="0"); } }), { threshold: 0.1 });
             document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-            document.onmousemove = (e) => { const c = document.getElementById('cursor'); c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px'; };
+            
+            // 4. ScrollSpy
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navObs = new IntersectionObserver(ents => {
+                ents.forEach(e => {
+                    if (e.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('text-japandi-oak', 'font-bold');
+                            if (link.getAttribute('href') === '#' + e.target.id) link.classList.add('text-japandi-oak', 'font-bold');
+                        });
+                    }
+                });
+            }, { rootMargin: "-40% 0px -40% 0px" });
+            document.querySelectorAll('section[id]').forEach(s => navObs.observe(s));
+            
+            // Custom Cursor with Drag-to-Scroll logic
+            const customCursor = document.getElementById('cursor');
+            document.onmousemove = (e) => { customCursor.style.left = e.clientX + 'px'; customCursor.style.top = e.clientY + 'px'; };
+            
+            const dragHover = () => {
+                customCursor.classList.add('w-12', 'h-12', 'bg-japandi-oak/90');
+                customCursor.classList.remove('w-4', 'h-4', 'bg-japandi-ink/20');
+                customCursor.innerHTML = '<span class="absolute top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#EBF1E6] text-[8px] tracking-widest font-sans font-bold">DRAG</span>';
+            };
+            const dragLeave = () => {
+                customCursor.classList.remove('w-12', 'h-12', 'bg-japandi-oak/90', 'bg-japandi-ink/90', 'scale-90');
+                customCursor.classList.add('w-4', 'h-4', 'bg-japandi-ink/20');
+                customCursor.innerHTML = '';
+            };
+            [musicGrid, ds, gallery].forEach(slider => {
+                let isDown = false, startX, scrollLeft;
+                slider.addEventListener('mouseenter', dragHover);
+                slider.addEventListener('mouseleave', () => { isDown = false; dragLeave(); });
+                slider.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    startX = e.pageX - slider.offsetLeft;
+                    scrollLeft = slider.scrollLeft;
+                    customCursor.classList.replace('bg-japandi-oak/90', 'bg-japandi-ink/90');
+                    customCursor.classList.add('scale-90');
+                });
+                slider.addEventListener('mouseup', () => { 
+                    isDown = false; 
+                    customCursor.classList.replace('bg-japandi-ink/90', 'bg-japandi-oak/90'); 
+                    customCursor.classList.remove('scale-90');
+                });
+                slider.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    slider.scrollLeft = scrollLeft - ((e.pageX - slider.offsetLeft) - startX) * 2;
+                });
+                // Disable drag blocking from images inside the slider
+                slider.querySelectorAll('img').forEach(img => img.addEventListener('dragstart', e => e.preventDefault()));
+            });
+
+            // 1. Preloader logic
+            window.addEventListener('load', () => {
+                const preloader = document.getElementById('preloader');
+                setTimeout(() => {
+                    preloader.classList.add('opacity-0');
+                    preloader.style.pointerEvents = 'none';
+                    setTimeout(() => preloader.remove(), 1000);
+                }, 800);
+            });
         });
     </script>
 </body>
