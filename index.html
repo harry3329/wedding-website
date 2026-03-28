@@ -271,51 +271,36 @@
         </div>
         <div class="absolute inset-x-0 bottom-0 z-0 flex items-end justify-center translate-y-48 md:translate-y-[15rem] pointer-events-none artifact-float">
             <svg width="1200" height="800" viewBox="0 0 1000 800" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[140%] md:w-full opacity-60">
-                <!-- 遠方山巒 (簡化為抽象且帶有稜角但不鋒利的線條) -->
-                <path class="line-art-path" d="M-50,450 L120,400 L250,430 L400,340 L550,410 L750,320 L900,420 L1050,380" stroke="#6E855F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path class="line-art-path" d="M0,620 C150,580 250,680 400,550 C550,420 700,580 850,480 C950,410 1000,450 1000,450" stroke="#6E855F" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                <path class="line-art-path" d="M100,680 C300,580 450,650 600,520 C750,390 900,550 1000,500" stroke="#6E855F" stroke-width="1.0" stroke-dasharray="8 4" opacity="0.8" style="animation-delay: 0.5s;" />
+                <path class="line-art-path" d="M-50,750 C100,700 250,780 450,650 C650,520 800,650 1050,580" stroke="#6E855F" stroke-width="0.6" opacity="0.4" style="animation-delay: 1s;" />
+                <circle class="line-art-path" cx="780" cy="250" r="70" stroke="#6E855F" stroke-width="0.5" opacity="0.3" style="animation-delay: 3s;" />
                 
-                <!-- 遠方雲朵 (保留波浪感但不畫表情) -->
-                <path class="line-art-path" d="M220,250 Q250,220 280,250 Q310,230 340,260 Q360,280 340,300 L220,300 Q190,280 220,250" stroke="#6E855F" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="animation-delay: 0.5s;" />
-                <path class="line-art-path" d="M720,200 Q740,180 770,200 Q790,190 810,210 Q830,230 810,240 L720,240 Q700,220 720,200" stroke="#6E855F" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="animation-delay: 0.8s;" />
-                
-                <!-- 蜿蜒小徑 (引導視覺到中間) -->
-                <path class="line-art-path" d="M300,800 C380,720 420,620 430,520" stroke="#6E855F" stroke-width="1.5" stroke-dasharray="6 6" stroke-linecap="round" style="animation-delay: 1s;" />
-                <path class="line-art-path" d="M700,800 C620,720 580,620 570,520" stroke="#6E855F" stroke-width="1.5" stroke-dasharray="6 6" stroke-linecap="round" style="animation-delay: 1.2s;" />
+                <!-- 左側書約風松樹 -->
+                <g class="line-art-path" style="animation-delay: 2s;" stroke="#6E855F" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M220,610 L220,580" />
+                    <!-- 底層樹叢 -->
+                    <path d="M195,580 C180,550 215,540 220,545 C225,540 260,550 245,580 C235,595 205,595 195,580 Z" />
+                    <!-- 頂層樹叢 -->
+                    <path d="M205,555 C195,525 218,515 220,520 C222,515 245,525 235,555" />
+                </g>
+                <g class="leaf-fade-in" style="animation-delay: 2.2s;">
+                    <circle cx="205" cy="565" r="2.5" fill="#6E855F" opacity="0.8" />
+                    <circle cx="235" cy="555" r="2" fill="#6E855F" opacity="0.6" />
+                </g>
 
-                <!-- 左側松樹林 (層疊的圓弧構成松樹) -->
-                <path class="line-art-path" d="M50,600 C30,570 70,520 100,530 C130,480 180,500 210,530 C250,500 300,530 280,580 C320,590 320,650 280,660" stroke="#6E855F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="animation-delay: 1.5s;" />
-                <path class="line-art-path" d="M120,580 L120,640 M200,560 L200,600 L180,580 M200,600 L220,580 M270,610 L270,660" stroke="#6E855F" stroke-width="1.5" stroke-linecap="round" style="animation-delay: 2s;" />
-
-                <!-- 右側灌木與小鹿剪影 -->
-                <path class="line-art-path" d="M950,550 C980,520 950,470 920,480 C900,430 850,450 820,480 C780,450 730,480 750,530 C710,540 710,600 750,610" stroke="#6E855F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="animation-delay: 1.8s;" />
-                <path class="line-art-path" d="M680,580 L675,540 C675,500 660,490 645,490 C635,490 635,505 645,510 C660,520 680,520 690,550 L695,580" stroke="#6E855F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="animation-delay: 2.2s;" />
-                <path class="line-art-path" d="M640,490 Q630,460 620,470 M640,490 Q650,460 660,470 M630,475 L625,480" stroke="#6E855F" stroke-width="1" stroke-linecap="round" style="animation-delay: 2.5s;" />
-
-                <!-- 右下方的簡約花朵 -->
-                <path class="line-art-path" d="M850,750 Q880,700 920,680" stroke="#6E855F" stroke-width="1.5" stroke-linecap="round" style="animation-delay: 2.8s;" />
-                <circle class="line-art-path" cx="920" cy="680" r="10" stroke="#6E855F" stroke-width="1.5" />
-                <circle class="line-art-path" cx="900" cy="670" r="15" stroke="#6E855F" stroke-width="1" style="animation-delay: 3s;" />
-                <circle class="line-art-path" cx="920" cy="655" r="15" stroke="#6E855F" stroke-width="1" style="animation-delay: 3.1s;" />
-                <circle class="line-art-path" cx="940" cy="670" r="15" stroke="#6E855F" stroke-width="1" style="animation-delay: 3.2s;" />
-                <circle class="line-art-path" cx="920" cy="695" r="15" stroke="#6E855F" stroke-width="1" style="animation-delay: 3.3s;" />
-
-                <!-- 左下方的樹葉枝條 -->
-                <path class="line-art-path" d="M100,800 Q150,720 180,680" stroke="#6E855F" stroke-width="1.5" stroke-linecap="round" style="animation-delay: 2.6s;" />
-                <path class="line-art-path" d="M130,760 Q80,750 70,720 Q110,710 145,740" stroke="#6E855F" stroke-width="1.2" stroke-linecap="round" style="animation-delay: 3s;" />
-                <path class="line-art-path" d="M165,710 Q140,680 145,650 Q175,660 180,690" stroke="#6E855F" stroke-width="1.2" stroke-linecap="round" style="animation-delay: 3.2s;" />
-
-                <!-- 漂浮音符 -->
-                <path class="line-art-path" d="M450,280 L450,220 L480,230 L480,250 L450,240" stroke="#6E855F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="animation-delay: 3.5s;" />
-                <circle cx="445" cy="285" r="6" stroke="#6E855F" stroke-width="1.5" class="line-art-path" style="animation-delay: 3.6s;" />
-                <path class="line-art-path" d="M180,180 Q200,160 180,140 Q160,180 180,220 Q200,220 190,200" stroke="#6E855F" stroke-width="1.2" stroke-linecap="round" style="animation-delay: 3.8s;" />
-                
-                <!-- 點綴綠葉/繁星點點 -->
-                <g class="leaf-fade-in" style="animation-delay: 4s;">
-                    <circle cx="250" cy="500" r="2.5" fill="#6E855F" />
-                    <circle cx="280" cy="480" r="1.5" fill="#6E855F" />
-                    <circle cx="680" cy="450" r="2" fill="#6E855F" />
-                    <circle cx="800" cy="560" r="2.5" fill="#6E855F" />
-                    <circle cx="150" cy="620" r="2" fill="#6E855F" />
+                <!-- 右側書約風松樹 -->
+                <g class="line-art-path" style="animation-delay: 2.5s;" stroke="#6E855F" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M720,535 L720,500" />
+                    <!-- 底層樹叢 -->
+                    <path d="M690,505 C675,475 715,460 720,465 C725,460 765,475 750,505 C740,520 700,520 690,505 Z" />
+                    <!-- 頂層樹叢 -->
+                    <path d="M705,475 C690,440 718,430 720,435 C722,430 750,440 735,475" />
+                </g>
+                <g class="leaf-fade-in" style="animation-delay: 2.7s;">
+                    <circle cx="705" cy="485" r="3" fill="#6E855F" opacity="0.8" />
+                    <circle cx="735" cy="470" r="2" fill="#6E855F" opacity="0.6" />
+                    <circle cx="740" cy="500" r="1.5" fill="#6E855F" opacity="0.5" />
                 </g>
             </svg>
         </div>
