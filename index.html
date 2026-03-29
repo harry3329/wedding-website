@@ -472,17 +472,20 @@
             <h3 class="font-serif text-2xl md:text-3xl tracking-widest text-japandi-ink mb-6 text-center">那些約定</h3>
             <p class="mb-12 font-sans font-light text-[11px] md:text-sm text-japandi-ink/50 leading-loose max-w-lg mx-auto italic">「沒有喧囂的音牆，只有那個下午陽光傾斜的角度。你點了點頭，世界從此有了共同的迴聲。」</p>
             <div class="reveal mb-10 flex flex-col items-center gap-10 px-2">
-                <!-- 影片一 -->
-                <div class="w-full max-w-4xl video-container aspect-video shadow-2xl rounded-sm overflow-hidden">
-                    <video id="proposal-video-1" controls class="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-700" poster="https://raw.githubusercontent.com/harry3329/wedding-website/main/assets/promise/photo/promise_01.webp">
+                <!-- 影片一：建議使用 YouTube Embed -->
+                <div class="w-full max-w-4xl video-container aspect-video shadow-2xl rounded-sm overflow-hidden bg-black flex items-center justify-center">
+                    <div id="promise-video-1-placeholder" class="text-japandi-clay text-xs tracking-widest uppercase">等待 YouTube 連結中...</div>
+                    <!-- 原本的本地影片備援 (目前可能無法讀取) -->
+                    <!-- <video id="proposal-video-1" controls class="w-full h-full object-cover grayscale-[10%]" poster="https://raw.githubusercontent.com/harry3329/wedding-website/main/assets/promise/photo/promise_01.webp">
                         <source src="https://raw.githubusercontent.com/harry3329/wedding-website/main/assets/promise/video/promise_01.mp4" type="video/mp4">
-                    </video>
+                    </video> -->
                 </div>
-                <!-- 影片二 -->
-                <div class="w-full max-w-4xl video-container aspect-video shadow-2xl rounded-sm overflow-hidden">
-                    <video id="proposal-video-2" controls class="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-700" poster="https://raw.githubusercontent.com/harry3329/wedding-website/main/assets/promise/photo/promise_06.webp">
+                <!-- 影片二：建議使用 YouTube Embed -->
+                <div class="w-full max-w-4xl video-container aspect-video shadow-2xl rounded-sm overflow-hidden bg-black flex items-center justify-center">
+                    <div id="promise-video-2-placeholder" class="text-japandi-clay text-xs tracking-widest uppercase">等待 YouTube 連結中...</div>
+                    <!-- <video id="proposal-video-2" controls class="w-full h-full object-cover grayscale-[10%]" poster="https://raw.githubusercontent.com/harry3329/wedding-website/main/assets/promise/photo/promise_06.webp">
                         <source src="https://raw.githubusercontent.com/harry3329/wedding-website/main/assets/promise/video/promise_02.mp4" type="video/mp4">
-                    </video>
+                    </video> -->
                 </div>
             </div>
             <div class="reveal"><div class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-4 px-2 pb-6" id="proposal-thumb-slider"></div></div>
@@ -668,6 +671,7 @@
                     }
                     div.onclick = () => openLightbox(photos.map((s, idx) => ({src: s, cap: `${personName} 的片段 ${idx+1}`})), i);
                     inner.appendChild(div);
+                    if (window.originObs) window.originObs.observe(div);
                 });
             };
             createSet(); createSet();
@@ -838,17 +842,19 @@
             }), { root: gallery, threshold: 0.6 });
             Array.from(gallery.children).forEach(el => beautyObs.observe(el));
             
-            const originObs = new IntersectionObserver(ents => ents.forEach(e => {
+            window.originObs = new IntersectionObserver(ents => ents.forEach(e => {
                 const img = e.target.querySelector('img');
-                if (e.isIntersecting) {
-                    img.classList.remove('grayscale', 'opacity-90', 'duration-1000');
-                    img.classList.add('grayscale-0', 'opacity-100', 'duration-500');
-                } else {
-                    img.classList.add('grayscale', 'opacity-90', 'duration-1000');
-                    img.classList.remove('grayscale-0', 'opacity-100', 'duration-500');
+                if (img) {
+                    if (e.isIntersecting) {
+                        img.classList.remove('grayscale', 'opacity-90', 'duration-1000');
+                        img.classList.add('grayscale-0', 'opacity-100', 'duration-500');
+                    } else {
+                        img.classList.add('grayscale', 'opacity-90', 'duration-1000');
+                        img.classList.remove('grayscale-0', 'opacity-100', 'duration-500');
+                    }
                 }
             }), { root: null, rootMargin: '0px -35% 0px -35%', threshold: 0 });
-            document.querySelectorAll('.origin-div').forEach(el => originObs.observe(el));
+            document.querySelectorAll('.origin-div').forEach(el => window.originObs.observe(el));
             
             setTimeout(() => { wrapScroll(ds); wrapScroll(gallery); wrapScroll(musicGrid); }, 500);
             
