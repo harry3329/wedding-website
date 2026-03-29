@@ -79,6 +79,8 @@
         .line-art-path {
             stroke-dasharray: 4000;
             stroke-dashoffset: 4000;
+        }
+        .animate-lines .line-art-path {
             animation: drawLineArt 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
         }
         @keyframes drawLineArt { to { stroke-dashoffset: 0; } }
@@ -667,8 +669,18 @@
             inner.appendChild(createSet());
             
             // Adjust animation duration based on content width for consistent speed
-            const speedFactor = 30; // pixels per second
-            const duration = (inner.scrollWidth / 2) / speedFactor;
+            const speedFactor = 20; // 20 pixels per second for an elegant Japandi feel
+            let scrollW = inner.scrollWidth;
+            if (scrollW === 0) {
+                // Ensure we get a width even if hidden initially
+                const parent = inner.closest('.origin-content, .journey-content');
+                if (parent && parent.classList.contains('h-0')) {
+                    parent.classList.remove('h-0');
+                    scrollW = inner.scrollWidth;
+                    parent.classList.add('h-0');
+                }
+            }
+            const duration = (scrollW / 2) / speedFactor || 80;
             inner.style.animationDuration = `${duration}s`;
             inner.classList.add(isReverse ? 'marquee-active-reverse' : 'marquee-active');
             
@@ -926,6 +938,7 @@
                 if (!preloader) return;
                 preloader.classList.add('opacity-0');
                 preloader.style.pointerEvents = 'none';
+                document.body.classList.add('animate-lines');
                 setTimeout(() => preloader.remove(), 1000);
             };
             
