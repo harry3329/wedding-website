@@ -826,7 +826,7 @@
                 progressBar.style.transform = `scaleX(${musicGrid.scrollLeft / (musicGrid.scrollWidth - musicGrid.offsetWidth)})`;
             };
 
-            const ds = document.getElementById('dating-slider'), gallery = document.getElementById('wedding-gallery'), thumbSlider = document.getElementById('proposal-thumb-slider');
+            const ds = document.getElementById('dating-slider'), thumbSlider = document.getElementById('proposal-thumb-slider');
             window.datingGallery = USER_PHOTOS.dating.map((src, i) => ({ src, cap: `日常 ${String(i+1).padStart(2,'0')}` }));
             window.weddingGallery = USER_PHOTOS.beauty.map((src, i) => ({ src, cap: `婚紗 ${String(i+1).padStart(2,'0')}` }));
             window.proposalGallery = USER_PHOTOS.promise.map((src, i) => ({ src, cap: `約定 ${String(i+1).padStart(2,'0')}` }));
@@ -894,7 +894,8 @@
                 customCursor.classList.add('w-4', 'h-4', 'bg-japandi-ink/20');
                 customCursor.innerHTML = '';
             };
-            [musicGrid, ds, gallery].forEach(slider => {
+            const beautyM1 = document.getElementById('beauty-marquee-1'), beautyM2 = document.getElementById('beauty-marquee-2');
+            [musicGrid, ds, beautyM1, beautyM2].filter(Boolean).forEach(slider => {
                 let isDown = false, startX, scrollLeft;
                 slider.addEventListener('mouseenter', dragHover);
                 slider.addEventListener('mouseleave', () => { isDown = false; dragLeave(); });
