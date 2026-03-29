@@ -120,7 +120,7 @@
 
         @keyframes leafFadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
         .leaf-fade-in { opacity: 0; }
-        .animate-lines .leaf-fade-in { animation: leafFadeIn 2.5s ease-out forwards; animation-delay: 5s; }
+        .animate-lines .leaf-fade-in { animation: leafFadeIn 2s ease-out forwards; animation-delay: 3.5s; }
 
         .frequency-path {
             stroke-dasharray: 1200;
@@ -670,7 +670,7 @@
             inner.appendChild(createSet());
             
             // Adjust animation duration based on content width for consistent speed
-            const speedFactor = 10; // 10 pixels per second for ultra-slow elegant movement
+            const speedFactor = 5; // 5 pixels per second for absolute serene movement
             let scrollW = inner.scrollWidth;
             if (scrollW === 0) {
                 // Ensure we get a width even if hidden initially
