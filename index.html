@@ -120,7 +120,7 @@
 
         @keyframes leafFadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
         .leaf-fade-in { opacity: 0; }
-        .animate-lines .leaf-fade-in { animation: leafFadeIn 2s ease-out forwards; animation-delay: 3.5s; }
+        .animate-lines .leaf-fade-in { animation: leafFadeIn 2s ease-out forwards; animation-delay: 2s; }
 
         .frequency-path {
             stroke-dasharray: 1200;
@@ -631,7 +631,7 @@
             });
         }
         
-        function setupMarquee(innerId, marqueeId, photos, personName, isLively = false, isReverse = false, fullGallery = null, startIndex = 0) {
+        function setupMarquee(innerId, marqueeId, photos, personName, isLively = false, isReverse = false, fullGallery = null, startIndex = 0, customSpeed = 15) {
             const inner = document.getElementById(innerId), marquee = document.getElementById(marqueeId);
             if (!inner || !marquee) return;
             inner.innerHTML = '';
@@ -670,7 +670,7 @@
             inner.appendChild(createSet());
             
             // Adjust animation duration based on content width for consistent speed
-            const speedFactor = 5; // 5 pixels per second for absolute serene movement
+            const speedFactor = customSpeed; // Pixels per second
             let scrollW = inner.scrollWidth;
             if (scrollW === 0) {
                 // Ensure we get a width even if hidden initially
@@ -709,8 +709,8 @@
             });
             const inner = document.getElementById(`${target}-inner`);
             if (inner && inner.childElementCount === 0) {
-                if (target === 'groom') setupMarquee('groom-inner', 'groom-marquee', USER_PHOTOS.childhoodGroom, '建誠');
-                else setupMarquee('bride-inner', 'bride-marquee', USER_PHOTOS.childhoodBride, '奕昕');
+                if (target === 'groom') setupMarquee('groom-inner', 'groom-marquee', USER_PHOTOS.childhoodGroom, '建誠', false, false, null, 0, 15);
+                else setupMarquee('bride-inner', 'bride-marquee', USER_PHOTOS.childhoodBride, '奕昕', false, false, null, 0, 15);
             }
         }
 
@@ -730,7 +730,7 @@
             });
             const inner = document.getElementById(`${target}-inner`);
             if (inner && inner.childElementCount === 0) {
-                setupMarquee(`${target}-inner`, `${target}-marquee`, USER_PHOTOS[`travel${target.charAt(0).toUpperCase() + target.slice(1)}`], target.toUpperCase(), true);
+                setupMarquee(`${target}-inner`, `${target}-marquee`, USER_PHOTOS[`travel${target.charAt(0).toUpperCase() + target.slice(1)}`], target.toUpperCase(), true, false, null, 0, 15);
             }
         }
 
@@ -864,8 +864,8 @@
             const beauty1 = USER_PHOTOS.beauty.slice(0, half);
             const beauty2 = USER_PHOTOS.beauty.slice(half);
             
-            setupMarquee('beauty-inner-1', 'beauty-marquee-1', beauty1, '婚紗', false, true, window.weddingGallery, 0); // Row 1: Right
-            setupMarquee('beauty-inner-2', 'beauty-marquee-2', beauty2, '婚紗', false, false, window.weddingGallery, half); // Row 2: Left
+            setupMarquee('beauty-inner-1', 'beauty-marquee-1', beauty1, '婚紗', false, true, window.weddingGallery, 0, 7); // Row 1: Right at 7px/s
+            setupMarquee('beauty-inner-2', 'beauty-marquee-2', beauty2, '婚紗', false, false, window.weddingGallery, half, 7); // Row 2: Left at 7px/s
             
             setTimeout(() => { wrapScroll(ds); wrapScroll(musicGrid); }, 500);
             
@@ -953,9 +953,9 @@
             Promise.all([minTimePromise, windowLoadPromise]).then(() => {
                 setTimeout(hideLoader, 300);
                 
-                // 1. Restore Taiwan immediately
-                setupMarquee('taiwan-inner', 'taiwan-marquee', USER_PHOTOS.travelTaiwan, 'TAIWAN', true);
-                setupMarquee('groom-inner', 'groom-marquee', USER_PHOTOS.childhoodGroom, '建誠');
+                // 1. Restore Taiwan/Groom immediately at 15px/s
+                setupMarquee('taiwan-inner', 'taiwan-marquee', USER_PHOTOS.travelTaiwan, 'TAIWAN', true, false, null, 0, 15);
+                setupMarquee('groom-inner', 'groom-marquee', USER_PHOTOS.childhoodGroom, '建誠', false, false, null, 0, 15);
 
                 // 2. Pre-populate hidden galleries after load to eliminate switching lag
                 setTimeout(() => {
@@ -963,8 +963,8 @@
                         const target = c === 'bride' ? 'bride' : c;
                         const inner = document.getElementById(`${target}-inner`);
                         if (inner && inner.childElementCount === 0) {
-                            if (c === 'bride') setupMarquee('bride-inner', 'bride-marquee', USER_PHOTOS.childhoodBride, '奕昕');
-                            else setupMarquee(`${c}-inner`, `${c}-marquee`, USER_PHOTOS[`travel${c.charAt(0).toUpperCase() + c.slice(1)}`], c.toUpperCase(), true);
+                            if (c === 'bride') setupMarquee('bride-inner', 'bride-marquee', USER_PHOTOS.childhoodBride, '奕昕', false, false, null, 0, 15);
+                            else setupMarquee(`${c}-inner`, `${c}-marquee`, USER_PHOTOS[`travel${c.charAt(0).toUpperCase() + c.slice(1)}`], c.toUpperCase(), true, false, null, 0, 15);
                         }
                     });
                 }, 800);
