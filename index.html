@@ -94,6 +94,14 @@
         .marquee-container { display: flex; white-space: nowrap; overflow-x: auto; width: 100%; scrollbar-width: none; -ms-overflow-style: none; }
         .marquee-container::-webkit-scrollbar { display: none; }
         .marquee-inner { display: flex; gap: 32px; align-items: center; padding-right: 32px; }
+        
+        .journey-content { transition: opacity 0.8s ease, transform 0.8s ease; }
+        .journey-content.opacity-0 { transform: translateY(10px); pointer-events: none; }
+        .journey-content.opacity-100 { transform: translateY(0); pointer-events: auto; }
+        
+        .origin-content { transition: opacity 0.8s ease, transform 0.8s ease; }
+        .origin-content.opacity-0 { transform: translateY(10px); pointer-events: none; }
+        .origin-content.opacity-100 { transform: translateY(0); pointer-events: auto; }
 
         @keyframes leafFadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
         .leaf-fade-in { opacity: 0; animation: leafFadeIn 1.5s ease-out forwards; }
@@ -372,8 +380,8 @@
                     <button id="btn-bride" class="tab-btn font-serif text-sm tracking-widest" onclick="switchOrigin('bride')">奕昕</button>
                 </div>
             </div>
-            <div id="origin-groom" class="origin-content reveal"><div class="marquee-container" id="groom-marquee"><div class="marquee-inner" id="groom-inner"></div></div></div>
-            <div id="origin-bride" class="origin-content hidden reveal"><div class="marquee-container" id="bride-marquee"><div class="marquee-inner" id="bride-inner"></div></div></div>
+            <div id="origin-groom" class="origin-content reveal active opacity-100"><div class="marquee-container" id="groom-marquee"><div class="marquee-inner" id="groom-inner"></div></div></div>
+            <div id="origin-bride" class="origin-content reveal opacity-0 h-0 overflow-hidden"><div class="marquee-container" id="bride-marquee"><div class="marquee-inner" id="bride-inner"></div></div></div>
         </div>
     </section>
 
@@ -447,9 +455,9 @@
                 </div>
             </div>
             <div class="reveal">
-                <div id="journey-taiwan" class="journey-content py-4"><div class="marquee-container" id="taiwan-marquee"><div class="marquee-inner" id="taiwan-inner"></div></div></div>
-                <div id="journey-japan" class="journey-content hidden py-4"><div class="marquee-container" id="japan-marquee"><div class="marquee-inner" id="japan-inner"></div></div></div>
-                <div id="journey-philippines" class="journey-content hidden py-4"><div class="marquee-container" id="philippines-marquee"><div class="marquee-inner" id="philippines-inner"></div></div></div>
+                <div id="journey-taiwan" class="journey-content py-4 opacity-100 transition-opacity duration-700 active-journey"><div class="marquee-container" id="taiwan-marquee"><div class="marquee-inner" id="taiwan-inner"></div></div></div>
+                <div id="journey-japan" class="journey-content py-4 opacity-0 h-0 overflow-hidden transition-opacity duration-700"><div class="marquee-container" id="japan-marquee"><div class="marquee-inner" id="japan-inner"></div></div></div>
+                <div id="journey-philippines" class="journey-content py-4 opacity-0 h-0 overflow-hidden transition-opacity duration-700"><div class="marquee-container" id="philippines-marquee"><div class="marquee-inner" id="philippines-inner"></div></div></div>
             </div>
         </div>
     </section>
@@ -625,9 +633,13 @@
             marquee.addEventListener('touchmove', pauseScroll, {passive: true});
             marquee.addEventListener('wheel', pauseScroll, {passive: true});
             
-            function step() { 
-                if (!isHovering) { 
-                    scrollPos += 0.5; 
+            let lastTime = 0;
+            function step(timestamp) {
+                if (!lastTime) lastTime = timestamp;
+                const delta = Math.min(timestamp - lastTime, 100); 
+                lastTime = timestamp;
+                if (!isHovering) {
+                    scrollPos += (40 * delta / 1000); 
                     if (scrollPos >= inner.scrollWidth / 2) scrollPos -= inner.scrollWidth / 2; 
                     marquee.scrollLeft = scrollPos; 
                 }
@@ -642,10 +654,21 @@
         }
 
         function switchOrigin(target) {
-            document.getElementById('origin-groom').classList.toggle('hidden', target !== 'groom'); document.getElementById('origin-bride').classList.toggle('hidden', target !== 'bride');
-            document.getElementById('btn-groom').classList.toggle('active', target === 'groom'); document.getElementById('btn-bride').classList.toggle('active', target === 'bride');
-            const targetInner = document.getElementById(`${target}-inner`);
-            if (targetInner && targetInner.childElementCount === 0) {
+            ['groom', 'bride'].forEach(p => {
+                const el = document.getElementById(`origin-${p}`);
+                const btn = document.getElementById(`btn-${p}`);
+                if (p === target) {
+                    el.classList.remove('opacity-0', 'h-0', 'overflow-hidden');
+                    el.classList.add('opacity-100');
+                    if (btn) btn.classList.add('active');
+                } else {
+                    el.classList.add('opacity-0', 'h-0', 'overflow-hidden');
+                    el.classList.remove('opacity-100');
+                    if (btn) btn.classList.remove('active');
+                }
+            });
+            const inner = document.getElementById(`${target}-inner`);
+            if (inner && inner.childElementCount === 0) {
                 if (target === 'groom') setupMarquee('groom-inner', 'groom-marquee', USER_PHOTOS.childhoodGroom, '建誠');
                 else setupMarquee('bride-inner', 'bride-marquee', USER_PHOTOS.childhoodBride, '奕昕');
             }
@@ -653,12 +676,18 @@
 
         function switchCountry(target) {
             ['taiwan', 'japan', 'philippines'].forEach(c => {
-                document.getElementById(`journey-${c}`).classList.toggle('hidden', c !== target); document.getElementById(`btn-${c}`).classList.toggle('active', c === target);
+                const el = document.getElementById(`journey-${c}`);
+                const btn = document.getElementById(`btn-${c}`);
+                if (c === target) {
+                    el.classList.remove('opacity-0', 'h-0', 'overflow-hidden');
+                    el.classList.add('opacity-100');
+                    btn.classList.add('active');
+                } else {
+                    el.classList.add('opacity-0', 'h-0', 'overflow-hidden');
+                    el.classList.remove('opacity-100');
+                    btn.classList.remove('active');
+                }
             });
-            const targetInner = document.getElementById(`${target}-inner`);
-            if (targetInner && targetInner.childElementCount === 0) {
-                setupMarquee(`${target}-inner`, `${target}-marquee`, USER_PHOTOS[`travel${target.charAt(0).toUpperCase() + target.slice(1)}`], target.toUpperCase(), true);
-            }
         }
 
         let lightboxGroup = [], lightboxIndex = 0;
@@ -866,11 +895,23 @@
                 setTimeout(() => preloader.remove(), 1000);
             };
             
-            // Force hide loader after 3s max, or when core assets are ready
-            const loaderTimeout = setTimeout(hideLoader, 3000);
+            // Force hide loader after 2s max, or when core assets are ready
+            const loaderTimeout = setTimeout(hideLoader, 2000);
             window.addEventListener('load', () => {
                 clearTimeout(loaderTimeout);
-                setTimeout(hideLoader, 500);
+                setTimeout(hideLoader, 300);
+                
+                // Pre-populate hidden galleries after load to eliminate switching lag
+                setTimeout(() => {
+                    ['japan', 'philippines', 'bride'].forEach(c => {
+                        const target = c === 'bride' ? 'bride' : c;
+                        const inner = document.getElementById(`${target}-inner`);
+                        if (inner && inner.childElementCount === 0) {
+                            if (c === 'bride') setupMarquee('bride-inner', 'bride-marquee', USER_PHOTOS.childhoodBride, '奕昕');
+                            else setupMarquee(`${c}-inner`, `${c}-marquee`, USER_PHOTOS[`travel${c.charAt(0).toUpperCase() + c.slice(1)}`], c.toUpperCase(), true);
+                        }
+                    });
+                }, 800);
             });
         });
     </script>
