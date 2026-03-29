@@ -627,17 +627,16 @@
                 const fragment = document.createDocumentFragment();
                 photos.forEach((src, i) => {
                     const div = document.createElement('div');
+                    div.className = isLively ? `flex-shrink-0 ${styles[i % 3].width} cursor-pointer group transition-all duration-700 hover:z-20 hover:scale-105` : "flex-shrink-0 w-64 md:w-80 cursor-pointer origin-div";
+                    const loadingAttr = i < 5 ? 'eager' : 'lazy';
                     if (isLively) {
-                        const styles = [{ ratio: 'aspect-[3/4]', width: 'w-64 md:w-80' }, { ratio: 'aspect-square', width: 'w-56 md:w-72' }, { ratio: 'aspect-[4/3]', width: 'w-72 md:w-96' }];
-                        div.className = `flex-shrink-0 ${styles[i % 3].width} cursor-pointer group transition-all duration-700 hover:z-20 hover:scale-105`;
-                        const loadingAttr = i < 5 ? 'eager' : 'lazy';
                         div.innerHTML = `<div class="${styles[i % 3].ratio} overflow-hidden bg-japandi-clay shadow-xl border-[4px] md:border-[6px] border-white"><img src="${src}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-1000" loading="${loadingAttr}"></div>`;
                     } else {
-                        div.className = "flex-shrink-0 w-64 md:w-80 cursor-pointer origin-div";
-                        const loadingAttr = i < 5 ? 'eager' : 'lazy';
                         div.innerHTML = `<div class="aspect-square bg-japandi-accent overflow-hidden shadow-sm transition-transform duration-700 hover:scale-105"><img src="${src}?q=80&w=800" class="w-full h-full object-cover grayscale opacity-90 transition-all duration-1000" loading="${loadingAttr}"></div>`;
                     }
                     div.onclick = () => openLightbox(photos.map((s, idx) => ({src: s, cap: `${personName} 的片段 ${idx+1}`})), i);
+                    
+                    if (!isLively && window.originObs) window.originObs.observe(div);
                     fragment.appendChild(div);
                 });
                 return fragment;
@@ -744,6 +743,33 @@
         function lightboxNext() { lightboxIndex = (lightboxIndex + 1) % lightboxGroup.length; updateLightboxView(); }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Observers first
+            window.originObs = new IntersectionObserver(ents => ents.forEach(e => {
+                const img = e.target.querySelector('img');
+                if (img) {
+                    if (e.isIntersecting) {
+                        img.classList.remove('grayscale', 'opacity-90', 'duration-1000');
+                        img.classList.add('grayscale-0', 'opacity-100', 'duration-500');
+                    } else {
+                        img.classList.add('grayscale', 'opacity-90', 'duration-1000');
+                        img.classList.remove('grayscale-0', 'opacity-100', 'duration-500');
+                    }
+                }
+            }), { root: null, rootMargin: '0px -35% 0px -35%', threshold: 0 });
+
+            window.beautyObs = new IntersectionObserver(ents => ents.forEach(e => {
+                const img = e.target.querySelector('img');
+                if (img) {
+                    if (e.isIntersecting) {
+                        img.classList.remove('grayscale', 'opacity-90', 'duration-1000');
+                        img.classList.add('grayscale-0', 'opacity-100', 'duration-500');
+                    } else {
+                        img.classList.add('grayscale', 'opacity-90', 'duration-1000');
+                        img.classList.remove('grayscale-0', 'opacity-100', 'duration-500');
+                    }
+                }
+            }), { threshold: 0.6 });
+
             document.getElementById('modal-prev').onclick = (e) => { e.stopPropagation(); lightboxPrev(); };
             document.getElementById('modal-next').onclick = (e) => { e.stopPropagation(); lightboxNext(); };
             document.getElementById('image-modal').onclick = (e) => { if (e.target.id === 'image-modal') closeModal(); };
@@ -806,31 +832,10 @@
                 return `<div class="flex-shrink-0 snap-center cursor-pointer w-64 md:w-96" onclick="openLightbox(window.weddingGallery, ${i})"><div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-sm"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 transition-all duration-1000"></div></div>`;
             }).join('');
             
-            const beautyObs = new IntersectionObserver(ents => ents.forEach(e => {
-                const img = e.target.querySelector('img');
-                if (e.isIntersecting) {
-                    img.classList.remove('grayscale', 'opacity-90', 'duration-1000');
-                    img.classList.add('grayscale-0', 'opacity-100', 'duration-500');
-                } else {
-                    img.classList.add('grayscale', 'opacity-90', 'duration-1000');
-                    img.classList.remove('grayscale-0', 'opacity-100', 'duration-500');
-                }
-            }), { root: gallery, threshold: 0.6 });
-            Array.from(gallery.children).forEach(el => beautyObs.observe(el));
+            Array.from(gallery.children).forEach(el => window.beautyObs.observe(el));
             
-            window.originObs = new IntersectionObserver(ents => ents.forEach(e => {
-                const img = e.target.querySelector('img');
-                if (img) {
-                    if (e.isIntersecting) {
-                        img.classList.remove('grayscale', 'opacity-90', 'duration-1000');
-                        img.classList.add('grayscale-0', 'opacity-100', 'duration-500');
-                    } else {
-                        img.classList.add('grayscale', 'opacity-90', 'duration-1000');
-                        img.classList.remove('grayscale-0', 'opacity-100', 'duration-500');
-                    }
-                }
-            }), { root: null, rootMargin: '0px -35% 0px -35%', threshold: 0 });
-            document.querySelectorAll('.origin-div').forEach(el => window.originObs.observe(el));
+            // No need to query all again, setupMarquee handles it
+            // document.querySelectorAll('.origin-div').forEach(el => window.originObs.observe(el));
             
             setTimeout(() => { wrapScroll(ds); wrapScroll(gallery); wrapScroll(musicGrid); }, 500);
             
