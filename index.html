@@ -211,31 +211,41 @@
 
     <!-- 全螢幕 Preloader -->
     <div id="preloader" class="fixed inset-0 z-[110] bg-[#EBF1E6] flex flex-col justify-center items-center transition-opacity duration-1000 ease-out">
-        <div class="animate-pulse flex flex-col items-center gap-6">
-            <svg width="64" height="64" viewBox="0 0 100 100" fill="none" stroke="#6E855F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <div class="animate-pulse flex flex-col items-center gap-10">
+            <!-- 散落的插畫元素 -->
+            <div class="flex items-center justify-center gap-8 md:gap-12 opacity-80">
                 <!-- 雲朵 -->
-                <path d="M 25,30 C 25,20 40,20 45,25 C 50,15 70,20 65,30 C 75,30 70,40 60,40 L 30,40 C 20,40 20,30 25,30 Z" fill="#EBF1E6" />
+                <svg width="48" height="32" viewBox="0 0 60 40" fill="none" stroke="#6E855F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <g transform="translate(-15, -10)">
+                        <path d="M 25,30 C 25,20 40,20 45,25 C 50,15 70,20 65,30 C 75,30 70,40 60,40 L 30,40 C 20,40 20,30 25,30 Z" fill="#EBF1E6" />
+                    </g>
+                </svg>
                 
-                <!-- 左側松樹 -->
-                <path d="M25,85 L25,60" />
-                <path d="M 10,60 C 10,45 40,45 40,60 C 40,70 10,70 10,60 Z" fill="#EBF1E6" />
-                <path d="M 15,50 C 15,30 35,30 35,50 C 35,55 15,55 15,50 Z" fill="#EBF1E6" />
-                
-                <!-- 右側手繪花朵 -->
-                <path d="M80,85 Q85,75 80,65 M80,75 Q90,70 92,75 Q85,82 80,75 Z" fill="#EBF1E6" />
-                <circle cx="80" cy="60" r="2.5" fill="#6E855F" />
-                <path d="M80,57.5 C73,48 87,48 80,57.5 Z" fill="#EBF1E6" />
-                <path d="M82.5,60 C92,53 92,67 82.5,60 Z" fill="#EBF1E6" />
-                <path d="M80,62.5 C87,72 73,72 80,62.5 Z" fill="#EBF1E6" />
-                <path d="M77.5,60 C68,67 68,53 77.5,60 Z" fill="#EBF1E6" />
+                <!-- 音樂符號 -->
+                <svg width="24" height="28" viewBox="0 0 30 35" fill="none" stroke="#6E855F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <g transform="translate(-45, -35)">
+                        <path d="M55,60 L55,45 L65,43 L65,58" />
+                        <ellipse cx="53" cy="61" rx="3.5" ry="2.5" fill="#6E855F" stroke="none" />
+                        <ellipse cx="63" cy="59" rx="3.5" ry="2.5" fill="#6E855F" stroke="none" />
+                    </g>
+                </svg>
 
-                <!-- 漂浮音符 -->
-                <path d="M55,60 L55,45 L65,43 L65,58" stroke-width="1.5" />
-                <ellipse cx="53" cy="61" rx="3.5" ry="2.5" fill="#6E855F" stroke="none" />
-                <ellipse cx="63" cy="59" rx="3.5" ry="2.5" fill="#6E855F" stroke="none" />
-            </svg>
-            <div class="font-serif text-xl md:text-2xl tracking-[0.4em] font-light text-japandi-oak flex items-center gap-3">
-                ABOUT US
+                <!-- 手繪花朵 -->
+                <svg width="32" height="40" viewBox="0 0 40 50" fill="none" stroke="#6E855F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <g transform="translate(-60, -40)">
+                        <path d="M80,85 Q85,75 80,65 M80,75 Q90,70 92,75 Q85,82 80,75 Z" fill="#EBF1E6" />
+                        <circle cx="80" cy="60" r="2.5" fill="#6E855F" stroke="none" />
+                        <path d="M80,57.5 C73,48 87,48 80,57.5 Z" fill="#EBF1E6" />
+                        <path d="M82.5,60 C92,53 92,67 82.5,60 Z" fill="#EBF1E6" />
+                        <path d="M80,62.5 C87,72 73,72 80,62.5 Z" fill="#EBF1E6" />
+                        <path d="M77.5,60 C68,67 68,53 77.5,60 Z" fill="#EBF1E6" />
+                    </g>
+                </svg>
+            </div>
+
+            <!-- 名稱文字 -->
+            <div class="font-serif text-xl md:text-2xl tracking-[0.3em] font-light text-japandi-ink flex items-center justify-center gap-3">
+                建誠 <span class="text-sm italic font-serif text-japandi-oak/80 tracking-normal">&amp;</span> 奕昕
             </div>
         </div>
     </div>
