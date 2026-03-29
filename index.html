@@ -119,7 +119,8 @@
         .origin-content.opacity-100 { transform: translateY(0); pointer-events: auto; }
 
         @keyframes leafFadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
-        .leaf-fade-in { opacity: 0; animation: leafFadeIn 1.5s ease-out forwards; }
+        .leaf-fade-in { opacity: 0; }
+        .animate-lines .leaf-fade-in { animation: leafFadeIn 2.5s ease-out forwards; animation-delay: 5s; }
 
         .frequency-path {
             stroke-dasharray: 1200;
@@ -356,7 +357,7 @@
                 
                 <!-- 新版實色塊左側樹木 (Solid Pear Tree Left) -->
                 <g transform="translate(220, 605) scale(0.85)">
-                    <g class="leaf-fade-in" style="animation-delay: 1.5s;">
+                    <g class="leaf-fade-in">
                         <!-- Base trunk -->
                         <path d="M0,0 L0,15 M-10,15 L10,15" stroke="#B8C4AD" stroke-width="3.5" stroke-linecap="round" fill="none" />
                         <!-- Pear Canopy -->
@@ -368,7 +369,7 @@
 
                 <!-- 新版實色塊右側樹木 (Solid Clover Tree Right) -->
                 <g transform="translate(720, 495) scale(0.85)">
-                    <g class="leaf-fade-in" style="animation-delay: 2.0s;">
+                    <g class="leaf-fade-in">
                         <!-- Base trunk -->
                         <path d="M0,0 L0,20 M-10,20 L10,20" stroke="#363D30" stroke-width="3.5" stroke-linecap="round" fill="none" />
                         <!-- Clover Canopy -->
@@ -669,7 +670,7 @@
             inner.appendChild(createSet());
             
             // Adjust animation duration based on content width for consistent speed
-            const speedFactor = 20; // 20 pixels per second for an elegant Japandi feel
+            const speedFactor = 10; // 10 pixels per second for ultra-slow elegant movement
             let scrollW = inner.scrollWidth;
             if (scrollW === 0) {
                 // Ensure we get a width even if hidden initially
