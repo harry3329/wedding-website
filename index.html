@@ -470,7 +470,7 @@
     <section id="places" class="py-10 md:py-16 bg-japandi-paper border-b border-japandi-clay/10 overflow-hidden relative">
         <div class="absolute inset-0 geo-line"><svg width="100%" height="100%" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg"><path d="M200,100 L800,400" stroke="#3A3D36" stroke-width="0.3" stroke-dasharray="4 4" /></svg></div>
         <div class="max-w-6xl mx-auto px-6 relative z-10 text-center md:text-left">
-            <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-8 md:mb-10 reveal">
                 <div class="text-center md:text-left mb-8 md:mb-0">
                     <p class="text-[10px] text-japandi-clay tracking-[0.4em] mb-4 uppercase">THE JOURNEY</p>
                     <h3 class="font-serif text-2xl md:text-3xl tracking-widest text-japandi-ink">那座島嶼</h3>
@@ -483,9 +483,9 @@
                 </div>
             </div>
             <div class="reveal">
-                <div id="journey-taiwan" class="journey-content py-4 opacity-100 transition-opacity duration-700 active-journey"><div class="marquee-container" id="taiwan-marquee"><div class="marquee-inner" id="taiwan-inner"></div></div></div>
-                <div id="journey-japan" class="journey-content py-4 opacity-0 h-0 overflow-hidden transition-opacity duration-700"><div class="marquee-container" id="japan-marquee"><div class="marquee-inner" id="japan-inner"></div></div></div>
-                <div id="journey-philippines" class="journey-content py-4 opacity-0 h-0 overflow-hidden transition-opacity duration-700"><div class="marquee-container" id="philippines-marquee"><div class="marquee-inner" id="philippines-inner"></div></div></div>
+                <div id="journey-taiwan" class="journey-content pt-2 pb-4 opacity-100 transition-opacity duration-700 active-journey"><div class="marquee-container" id="taiwan-marquee"><div class="marquee-inner" id="taiwan-inner"></div></div></div>
+                <div id="journey-japan" class="journey-content pt-2 pb-4 opacity-0 h-0 overflow-hidden transition-opacity duration-700"><div class="marquee-container" id="japan-marquee"><div class="marquee-inner" id="japan-inner"></div></div></div>
+                <div id="journey-philippines" class="journey-content pt-2 pb-4 opacity-0 h-0 overflow-hidden transition-opacity duration-700"><div class="marquee-container" id="philippines-marquee"><div class="marquee-inner" id="philippines-inner"></div></div></div>
             </div>
         </div>
     </section>
@@ -864,8 +864,8 @@
             const beauty1 = USER_PHOTOS.beauty.slice(0, half);
             const beauty2 = USER_PHOTOS.beauty.slice(half);
             
-            setupMarquee('beauty-inner-1', 'beauty-marquee-1', beauty1, '婚紗', false, true, window.weddingGallery, 0, 9); // Row 1: Right at 9px/s
-            setupMarquee('beauty-inner-2', 'beauty-marquee-2', beauty2, '婚紗', false, false, window.weddingGallery, half, 9); // Row 2: Left at 9px/s
+            setupMarquee('beauty-inner-1', 'beauty-marquee-1', beauty1, '婚紗', false, true, window.weddingGallery, 0, 15); // Row 1: Right at 15px/s
+            setupMarquee('beauty-inner-2', 'beauty-marquee-2', beauty2, '婚紗', false, false, window.weddingGallery, half, 15); // Row 2: Left at 15px/s
             
             setTimeout(() => { wrapScroll(ds); wrapScroll(musicGrid); }, 500);
             
