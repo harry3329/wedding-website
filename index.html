@@ -206,7 +206,18 @@
 </head>
 <body class="font-sans text-japandi-ink antialiased selection:bg-japandi-oak selection:text-white overflow-x-hidden">
 
-    <div id="cursor" class="custom-cursor hidden md:block"></div>
+    <!-- 自訂游標 -->
+    <div id="cursor" class="fixed w-4 h-4 bg-japandi-ink/20 rounded-full pointer-events-none z-[100] transform -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out hidden md:block"></div>
+
+    <!-- 全螢幕 Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[110] bg-[#EBF1E6] flex flex-col justify-center items-center transition-opacity duration-1000 ease-out">
+        <div class="animate-pulse flex flex-col items-center">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6E855F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4">
+                <path d="M12 22V12 M12 12C12 12 10 16 7 16 C4 16 4 12 7 9 C10 6 12 12 12 12 Z M12 12C12 12 14 8 17 8 C20 8 20 12 17 15 C14 18 12 12 12 12 Z"/>
+            </svg>
+            <p class="font-serif text-xs tracking-[0.5em] text-[#6E855F] uppercase">About Time...</p>
+        </div>
+    </div>
 
     <div id="image-modal" class="fixed inset-0 z-[100] bg-japandi-paper/95 backdrop-blur-md opacity-0 invisible flex items-center justify-center p-6 md:p-12 transition-all duration-500">
         <!-- Close Button -->
