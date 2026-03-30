@@ -498,7 +498,7 @@
             <p class="mt-6 font-sans font-light text-[14px] text-japandi-ink/50 leading-loose max-w-lg mx-auto italic">「日子是木頭的紋理，細碎且踏實。最平淡的煙火氣，藏著最深情的共鳴。」</p>
         </div>
         <div class="relative max-w-[100vw] overflow-hidden">
-            <div class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-0 px-[25vw] md:px-[35vw] py-10 items-center" id="dating-reel"></div>
+            <div class="flex overflow-x-auto hide-scrollbar gap-6 px-6 md:px-[15vw] py-10 items-center" id="dating-reel"></div>
             <!-- Progress Bar -->
             <div class="absolute bottom-4 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-japandi-oak/10 rounded-full">
                 <div id="dating-progress" class="h-full bg-japandi-oak rounded-full transition-all duration-100" style="width: 0%"></div>
@@ -856,42 +856,21 @@
                 if (!reel) return;
                 
                 reel.innerHTML = USER_PHOTOS.dating.map((src, i) => `
-                    <div class="flex-shrink-0 w-[75vw] md:w-[42vw] aspect-[4/5] snap-center px-1 md:px-4 group cursor-pointer dating-item" onclick="openLightbox(window.datingGallery, ${i})">
-                        <div class="reel-card w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl transition-[transform,filter,opacity] duration-150 transform-gpu bg-japandi-clay">
-                            <img src="${src}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700">
+                    <div class="flex-shrink-0 w-64 md:w-96 aspect-[4/5] group cursor-pointer" onclick="openLightbox(window.datingGallery, ${i})">
+                        <div class="w-full h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-lg transition-transform duration-500 hover:scale-[1.02] bg-japandi-clay">
+                            <img src="${src}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700">
                         </div>
                     </div>
                 `).join('');
 
-                const updateReel = () => {
-                    const reelRect = reel.getBoundingClientRect();
-                    const reelCenter = reelRect.left + reelRect.width / 2;
-                    const items = reel.querySelectorAll('.dating-item');
-                    
-                    items.forEach(item => {
-                        const card = item.querySelector('.reel-card'), img = item.querySelector('img');
-                        const itemRect = item.getBoundingClientRect();
-                        const itemCenter = itemRect.left + itemRect.width / 2;
-                        const dist = Math.abs(reelCenter - itemCenter);
-                        // More aggressive curve: Focus happens much closer to the center
-                        const maxDist = reelRect.width * 0.5;
-                        const p = Math.pow(Math.min(dist / maxDist, 1), 1.5);
-                        
-                        card.style.transform = `scale(${1 - p * 0.18})`;
-                        card.style.filter = `blur(${p * 8}px)`;
-                        img.style.opacity = 1 - p * 0.45;
-                        card.style.zIndex = Math.round((1 - p) * 10);
-                    });
-                    
+                const updateProgress = () => {
                     if (progress) {
                         const scrollP = reel.scrollLeft / (reel.scrollWidth - reel.offsetWidth);
-                        progress.style.width = `${scrollP * 100}%`;
+                        progress.style.width = `${Math.max(0, Math.min(100, scrollP * 100))}%`;
                     }
                 };
-
-                reel.addEventListener('scroll', updateReel, { passive: true });
-                window.addEventListener('resize', updateReel);
-                setTimeout(updateReel, 100);
+                reel.addEventListener('scroll', updateProgress, { passive: true });
+                setTimeout(updateProgress, 100);
             };
             populateDatingReel();
             
