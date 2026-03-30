@@ -856,8 +856,8 @@
                 if (!reel) return;
                 
                 reel.innerHTML = USER_PHOTOS.dating.map((src, i) => `
-                    <div class="flex-shrink-0 w-[60vw] md:w-[35vw] aspect-[4/5] snap-center px-4 md:px-10 group cursor-pointer dating-item" onclick="openLightbox(window.datingGallery, ${i})">
-                        <div class="reel-card w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl transition-all duration-500 transform-gpu bg-japandi-clay">
+                    <div class="flex-shrink-0 w-[75vw] md:w-[42vw] aspect-[4/5] snap-center px-1 md:px-4 group cursor-pointer dating-item" onclick="openLightbox(window.datingGallery, ${i})">
+                        <div class="reel-card w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl transition-[transform,filter,opacity] duration-150 transform-gpu bg-japandi-clay">
                             <img src="${src}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700">
                         </div>
                     </div>
@@ -873,12 +873,13 @@
                         const itemRect = item.getBoundingClientRect();
                         const itemCenter = itemRect.left + itemRect.width / 2;
                         const dist = Math.abs(reelCenter - itemCenter);
-                        const maxDist = reelRect.width * 0.7;
-                        const p = Math.min(dist / maxDist, 1);
+                        // More aggressive curve: Focus happens much closer to the center
+                        const maxDist = reelRect.width * 0.5;
+                        const p = Math.pow(Math.min(dist / maxDist, 1), 1.5);
                         
-                        card.style.transform = `scale(${1 - p * 0.2})`;
-                        card.style.filter = `blur(${p * 6}px)`;
-                        img.style.opacity = 1 - p * 0.5;
+                        card.style.transform = `scale(${1 - p * 0.18})`;
+                        card.style.filter = `blur(${p * 8}px)`;
+                        img.style.opacity = 1 - p * 0.45;
                         card.style.zIndex = Math.round((1 - p) * 10);
                     });
                     
