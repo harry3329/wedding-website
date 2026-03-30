@@ -979,7 +979,7 @@
                 customCursor.innerHTML = '';
             };
             const beautyM1 = document.getElementById('beauty-marquee-1'), beautyM2 = document.getElementById('beauty-marquee-2');
-            [musicGrid, ds, beautyM1, beautyM2].filter(Boolean).forEach(slider => {
+            [musicGrid, reel, beautyM1, beautyM2].filter(Boolean).forEach(slider => {
                 let isDown = false, startX, scrollLeft;
                 slider.addEventListener('mouseenter', dragHover);
                 slider.addEventListener('mouseleave', () => { isDown = false; dragLeave(); });
