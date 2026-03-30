@@ -1018,7 +1018,11 @@
             const minTimePromise = new Promise(res => setTimeout(res, 2200));
             const windowLoadPromise = new Promise(res => {
                 if (document.readyState === 'complete') res();
-                else window.addEventListener('load', res);
+                else {
+                    window.addEventListener('load', res);
+                    // Failsafe: if load takes too long (e.g. slow images), continue anyway after 6s
+                    setTimeout(res, 6000);
+                }
             });
             
             Promise.all([minTimePromise, windowLoadPromise]).then(() => {
