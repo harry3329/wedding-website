@@ -535,10 +535,13 @@
             <h3 class="font-serif text-2xl md:text-3xl tracking-widest text-japandi-ink text-center md:text-left">那些美好</h3>
             <p class="mt-4 font-sans font-light text-[14px] text-japandi-ink/50 leading-loose italic">「我們不捕捉完美，捕捉真實。在光與影的縫隙裡，看見彼此眼底最深邃的安靜。」</p>
         </div>
-        <div id="beauty-masonry" class="columns-2 md:columns-3 lg:columns-4 gap-4 px-6"></div>
+        <div id="beauty-masonry" class="flex flex-wrap gap-3 md:gap-6 max-w-6xl mx-auto px-6 mb-12">
+            <!-- Data populated by JS -->
+        </div>
+
         <div id="beauty-more-container" class="mt-12 text-center reveal">
             <button id="btn-beauty-more" class="group relative px-10 py-4 bg-transparent border border-japandi-oak/30 text-japandi-oak text-[10px] tracking-[0.4em] uppercase hover:bg-japandi-oak hover:text-white transition-all duration-700">
-                <span class="relative z-10">Explore All Collection</span>
+                <span class="relative z-10">探索更多</span>
                 <div class="absolute inset-0 bg-japandi-oak scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
             </button>
         </div>
@@ -888,15 +891,21 @@
                 const container = document.getElementById('beauty-masonry');
                 if (!container) return;
                 const photos = USER_PHOTOS.beauty;
-                const initialCount = 12;
+                // Pre-count logic for pattern: groups of 3 (2 Vertical, 1 Horizontal)
+                const initialCount = 9; 
                 
                 photos.forEach((src, i) => {
                     const div = document.createElement('div');
                     const isHidden = i >= initialCount;
-                    const aspect = i % 3 === 0 ? 'aspect-[3/4]' : (i % 3 === 1 ? 'aspect-square' : 'aspect-[4/3]');
-                    div.className = `break-inside-avoid mb-4 group cursor-pointer reveal beauty-photo ${isHidden ? 'hidden hidden-beauty' : ''}`;
+                    
+                    // Pattern: i%3=0,1 (Vertical), i%3=2 (Horizontal)
+                    const isVertical = (i % 3) < 2;
+                    const widthClass = isVertical ? 'w-[calc(50%-0.5rem)] md:w-[calc(50%-0.75rem)]' : 'w-full';
+                    const aspect = isVertical ? 'aspect-[3/4]' : 'aspect-[3/2] md:aspect-[21/9]';
+                    
+                    div.className = `flex-shrink-0 ${widthClass} group cursor-pointer reveal beauty-photo ${isHidden ? 'hidden hidden-beauty' : ''}`;
                     div.onclick = () => openLightbox(window.weddingGallery, i);
-                    div.innerHTML = `<div class="${aspect} overflow-hidden bg-japandi-clay shadow-sm"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 transition-all duration-1000 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"></div>`;
+                    div.innerHTML = `<div class="${aspect} overflow-hidden bg-japandi-clay shadow-sm rounded-lg md:rounded-xl"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 transition-all duration-1000 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"></div>`;
                     container.appendChild(div);
                     if (!isHidden && window.beautyObs) window.beautyObs.observe(div);
                 });
