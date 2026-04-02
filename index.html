@@ -806,9 +806,32 @@
         function lightboxPrev() { lightboxIndex = (lightboxIndex - 1 + lightboxGroup.length) % lightboxGroup.length; updateLightboxView(); }
         function lightboxNext() { lightboxIndex = (lightboxIndex + 1) % lightboxGroup.length; updateLightboxView(); }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize Observers first
-            window.originObs = new IntersectionObserver(ents => ents.forEach(e => {
+            // 1. Optimized Preloader logic (Moved to top for resilience)
+            const hideLoader = () => {
+                const preloader = document.getElementById('preloader');
+                if (!preloader) return;
+                preloader.classList.add('opacity-0');
+                preloader.style.pointerEvents = 'none';
+                document.body.classList.add('animate-lines');
+                setTimeout(() => preloader.remove(), 1000);
+            };
+            
+            const minTimePromise = new Promise(res => setTimeout(res, 2200));
+            const windowLoadPromise = new Promise(res => {
+                if (document.readyState === 'complete') res();
+                else {
+                    window.addEventListener('load', res);
+                    setTimeout(res, 6000);
+                }
+            });
+            
+            Promise.all([minTimePromise, windowLoadPromise]).then(() => {
+                setTimeout(hideLoader, 300);
+            });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                // Initialize Observers first
+                window.originObs = new IntersectionObserver(ents => ents.forEach(e => {
                 const img = e.target.querySelector('img');
                 if (img) {
                     if (e.isIntersecting) {
@@ -950,7 +973,7 @@
             };
             populateBeautyMasonry();
             
-            setTimeout(() => { wrapScroll(ds); wrapScroll(musicGrid); }, 500);
+            setTimeout(() => { wrapScroll(reel); wrapScroll(musicGrid); }, 500);
             
             thumbSlider.className = "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full";
             thumbSlider.innerHTML = USER_PHOTOS.promise.map((src, i) => {
@@ -1016,29 +1039,7 @@
                 slider.querySelectorAll('img').forEach(img => img.addEventListener('dragstart', e => e.preventDefault()));
             });
 
-            // 1. Optimized Preloader logic
-            const hideLoader = () => {
-                const preloader = document.getElementById('preloader');
-                if (!preloader) return;
-                preloader.classList.add('opacity-0');
-                preloader.style.pointerEvents = 'none';
-                document.body.classList.add('animate-lines');
-                setTimeout(() => preloader.remove(), 1000);
-            };
-            
-            // Force hide loader after at least 2.2s to show animation
-            const minTimePromise = new Promise(res => setTimeout(res, 2200));
-            const windowLoadPromise = new Promise(res => {
-                if (document.readyState === 'complete') res();
-                else {
-                    window.addEventListener('load', res);
-                    // Failsafe: if load takes too long (e.g. slow images), continue anyway after 6s
-                    setTimeout(res, 6000);
-                }
-            });
-            
-            Promise.all([minTimePromise, windowLoadPromise]).then(() => {
-                setTimeout(hideLoader, 300);
+
                 
                 // 1. Restore Taiwan/Groom immediately at 20px/s
                 setupMarquee('taiwan-inner', 'taiwan-marquee', USER_PHOTOS.travelTaiwan, 'TAIWAN', true, false, null, 0, 20);
@@ -1056,7 +1057,6 @@
                     });
                 }, 800);
             });
-        });
     </script>
 </body>
 </html>
