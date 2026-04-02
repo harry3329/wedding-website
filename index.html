@@ -129,10 +129,34 @@
         }
         .frequency-container.active .frequency-path {
             stroke-dashoffset: 0;
+        }        .beauty-photo .loading-skeleton {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, #F0F2EB 25%, #E5EADF 50%, #F0F2EB 75%);
+            background-size: 200% 100%;
+            animation: skeleton-shift 2s infinite linear;
+            z-index: 1;
         }
-
-
-
+        @keyframes skeleton-shift {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .beauty-img {
+            opacity: 0;
+            filter: grayscale(1);
+            transition: opacity 1.2s ease, filter 1.5s ease, transform 1.2s ease;
+            z-index: 2;
+        }
+        .beauty-img.loaded {
+            opacity: 0.9;
+            filter: grayscale(1);
+        }
+        .beauty-photo:hover .beauty-img.loaded {
+            opacity: 1;
+            filter: grayscale(0);
+            transform: scale(1.05);
+        }
+        .hidden-beauty { display: none !important; }
         .music-stack-container {
             display: flex;
             position: relative;
@@ -903,9 +927,13 @@
                     const widthClass = isVertical ? 'w-[calc(50%-0.5rem)] md:w-[calc(50%-0.75rem)]' : 'w-full';
                     const aspect = isVertical ? 'aspect-[3/4]' : 'aspect-[3/2] md:aspect-[21/9]';
                     
-                    div.className = `flex-shrink-0 ${widthClass} group cursor-pointer reveal beauty-photo ${isHidden ? 'hidden hidden-beauty' : ''}`;
+                    div.className = `flex-shrink-0 ${widthClass} group cursor-pointer reveal beauty-photo ${isHidden ? 'hidden-beauty' : ''}`;
                     div.onclick = () => openLightbox(window.weddingGallery, i);
-                    div.innerHTML = `<div class="${aspect} overflow-hidden bg-japandi-clay shadow-sm rounded-lg md:rounded-xl"><img src="${src}" class="w-full h-full object-cover grayscale opacity-90 transition-all duration-1000 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"></div>`;
+                    div.innerHTML = `
+                        <div class="${aspect} overflow-hidden bg-japandi-clay/20 shadow-sm rounded-lg md:rounded-xl relative">
+                            <div class="loading-skeleton"></div>
+                            <img src="${src}" class="beauty-img w-full h-full object-cover" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';" loading="lazy">
+                        </div>`;
                     container.appendChild(div);
                     if (!isHidden && window.beautyObs) window.beautyObs.observe(div);
                 });
