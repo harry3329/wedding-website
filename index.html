@@ -957,6 +957,7 @@
                     if (!isHidden && window.beautyObs) window.beautyObs.observe(div);
                 });
 
+                const btnMore = document.getElementById('btn-beauty-more');
                 if (btnMore) {
                     btnMore.onclick = () => {
                         document.querySelectorAll('.hidden-beauty').forEach(el => {
@@ -1013,12 +1014,13 @@
                 customCursor.classList.add('w-4', 'h-4', 'bg-japandi-ink/20');
                 customCursor.innerHTML = '';
             };
-            const beautyM1 = document.getElementById('beauty-marquee-1'), beautyM2 = document.getElementById('beauty-marquee-2');
+            const beautyM1 = null, beautyM2 = null; // No longer present in grid layout
             [musicGrid, reel, beautyM1, beautyM2].filter(Boolean).forEach(slider => {
                 let isDown = false, startX, scrollLeft;
                 slider.addEventListener('mouseenter', dragHover);
                 slider.addEventListener('mouseleave', () => { isDown = false; dragLeave(); });
                 slider.addEventListener('mousedown', (e) => {
+                    if (window.innerWidth < 768) return; // Disable drag-to-scroll on mobile to avoid touch conflict
                     isDown = true;
                     startX = e.pageX - slider.offsetLeft;
                     scrollLeft = slider.scrollLeft;
