@@ -771,7 +771,7 @@
             });
             const inner = document.getElementById(`${target}-inner`);
             if (inner && inner.childElementCount === 0) {
-                setupMarquee(`${target}-inner`, `${target}-marquee`, USER_PHOTOS[`travel${target.charAt(0).toUpperCase() + target.slice(1)}`], target.toUpperCase(), true, false, 8);
+                setupMarquee(`${target}-inner`, `${target}-marquee`, USER_PHOTOS[`travel${target.charAt(0).toUpperCase() + target.slice(1)}`], target.toUpperCase(), false, false, 8);
             }
         }
 
@@ -893,7 +893,7 @@
                 // Add staggered vertical offset
                 const offsetClass = isEven ? 'md:mt-0 mt-0' : 'md:mt-12 mt-8';
                 div.className = `reveal forest-photo w-full group cursor-pointer relative z-10 ${offsetClass} ${i % 2 === 0 ? 'rotate-1' : '-rotate-1'}`;
-                div.innerHTML = `<div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-xl border-[4px] md:border-[6px] border-white rounded-sm"><img src="${src}" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"></div><div class="mt-3 flex justify-between items-center px-1 opacity-40 text-[7px] tracking-widest uppercase"><span>Path 0${i+1}</span><span>Elev. 2${i%5}00m</span></div>`;
+                div.innerHTML = `<div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-xl border-[4px] md:border-[6px] border-white rounded-sm"><img src="${src}" loading="eager" decoding="async" class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"></div><div class="mt-3 flex justify-between items-center px-1 opacity-40 text-[7px] tracking-widest uppercase"><span>Path 0${i+1}</span><span>Elev. 2${i%5}00m</span></div>`;
                 div.onclick = () => openLightbox(hikingGallery, i);
                 forestGrid.appendChild(div);
             });
@@ -969,7 +969,7 @@
                     div.innerHTML = `
                         <div class="${aspect} overflow-hidden bg-japandi-clay/20 shadow-sm rounded-lg md:rounded-xl relative">
                             <div class="loading-skeleton"></div>
-                            <img src="${src}" class="beauty-img w-full h-full object-cover" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';" loading="lazy" decoding="async">
+                            <img src="${src}" class="beauty-img w-full h-full object-cover" onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';" loading="eager" decoding="async">
                         </div>`;
                     container.appendChild(div);
                     if (!isHidden && window.beautyObs) window.beautyObs.observe(div);
@@ -1090,10 +1090,10 @@
                 
                 // 1. Initialize marquees (now lazy by default)
                 // Taiwan velocity is tuned up slightly higher to match visual perception of Reverse sliding
-                setupMarquee('taiwan-inner', 'taiwan-marquee', USER_PHOTOS.travelTaiwan, 'TAIWAN', true, false, 10);
+                setupMarquee('taiwan-inner', 'taiwan-marquee', USER_PHOTOS.travelTaiwan, 'TAIWAN', false, false, 10);
                 setupMarquee('groom-inner', 'groom-marquee', USER_PHOTOS.childhoodGroom, '建誠', false, false, 8);
-                setupMarquee('japan-inner', 'japan-marquee', USER_PHOTOS.travelJapan, 'JAPAN', true, false, 8);
-                setupMarquee('philippines-inner', 'philippines-marquee', USER_PHOTOS.travelPhilippines, 'PHILIPPINES', true, false, 8);
+                setupMarquee('japan-inner', 'japan-marquee', USER_PHOTOS.travelJapan, 'JAPAN', false, false, 8);
+                setupMarquee('philippines-inner', 'philippines-marquee', USER_PHOTOS.travelPhilippines, 'PHILIPPINES', false, false, 8);
                 setupMarquee('bride-inner', 'bride-marquee', USER_PHOTOS.childhoodBride, '奕昕', false, false, 8);
             });
     </script>
