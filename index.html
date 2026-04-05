@@ -684,7 +684,7 @@
                     const fragment = document.createDocumentFragment();
                     photos.forEach((src, i) => {
                         const div = document.createElement('div');
-                        div.className = "flex-shrink-0 w-64 md:w-80 h-40 md:h-56 bg-japandi-clay/10 rounded-lg overflow-hidden shadow-sm relative reveal";
+                        div.className = "flex-shrink-0 w-64 md:w-80 h-40 md:h-56 bg-japandi-clay/10 rounded-lg overflow-hidden shadow-sm relative";
                         div.innerHTML = `
                             <div class="loading-skeleton absolute inset-0 bg-japandi-clay/5"></div>
                             <img src="${src}" alt="${altPrefix} ${i+1}" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-0 transition-opacity duration-500" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';">
