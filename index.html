@@ -684,7 +684,7 @@
                     const fragment = document.createDocumentFragment();
                     photos.forEach((src, i) => {
                         const div = document.createElement('div');
-                        div.className = "flex-shrink-0 w-64 md:w-80 h-40 md:h-56 bg-japandi-clay/10 rounded-lg overflow-hidden shadow-sm relative";
+                        div.className = "flex-shrink-0 w-52 md:w-80 aspect-[4/5] bg-japandi-clay/10 rounded-2xl md:rounded-3xl overflow-hidden shadow-lg relative";
                         div.innerHTML = `
                             <div class="loading-skeleton absolute inset-0 bg-japandi-clay/5"></div>
                             <img src="${src}" alt="${altPrefix} ${i+1}" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-0 transition-opacity duration-500" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none';">
@@ -904,7 +904,7 @@
             const infiniteMusic = [...USER_PHOTOS.music, ...USER_PHOTOS.music, ...USER_PHOTOS.music];
             musicGrid.innerHTML = infiniteMusic.map((src, idx) => {
                 const i = idx % USER_PHOTOS.music.length;
-                return `<div class="flex-shrink-0 w-64 md:w-96 snap-center group cursor-pointer reveal" onclick="openLightbox(window.musicGallery, ${i})"><div class="aspect-[4/3] overflow-hidden bg-japandi-clay shadow-sm"><img src="${src}" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-95 transition-all duration-700"></div><div class="mt-4 flex flex-col items-center gap-2 opacity-30 text-[9px] uppercase tracking-[0.4em]">Sequence ${String(i+1).padStart(2,'0')}</div></div>`;
+                return `<div class="flex-shrink-0 w-52 md:w-80 snap-center group cursor-pointer reveal" onclick="openLightbox(window.musicGallery, ${i})"><div class="aspect-[4/5] bg-japandi-clay rounded-2xl md:rounded-3xl shadow-lg transform transition-transform duration-500 hover:scale-[1.02] overflow-hidden"><img src="${src}" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-95 hover:opacity-100 transition-all duration-700"></div><div class="mt-4 flex flex-col items-center gap-2 opacity-30 text-[9px] uppercase tracking-[0.4em]">Sequence ${String(i+1).padStart(2,'0')}</div></div>`;
             }).join('');
             musicGrid.onscroll = () => {
                 progressBar.style.transform = `scaleX(${musicGrid.scrollLeft / (musicGrid.scrollWidth - musicGrid.offsetWidth)})`;
