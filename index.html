@@ -1096,6 +1096,33 @@
                 setupMarquee('japan-inner', 'japan-marquee', USER_PHOTOS.travelJapan, 'JAPAN', false, false, 8);
                 setupMarquee('philippines-inner', 'philippines-marquee', USER_PHOTOS.travelPhilippines, 'PHILIPPINES', false, false, 8);
                 setupMarquee('bride-inner', 'bride-marquee', USER_PHOTOS.childhoodBride, '奕昕', false, false, 8);
+                
+                // 2. Background Sequential Preloader
+                // Silently loads all remaining lazy images in chunks of 3 AFTER the page has fully loaded
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        const lazyImages = Array.from(document.querySelectorAll('img[loading="lazy"]'));
+                        if (!lazyImages.length) return;
+                        
+                        let i = 0;
+                        const loadNextChunk = () => {
+                            if (i >= lazyImages.length) return;
+                            const chunk = lazyImages.slice(i, i + 3);
+                            i += 3;
+                            
+                            Promise.all(chunk.map(img => {
+                                return new Promise(resolve => {
+                                    if (img.complete && img.naturalHeight !== 0) return resolve();
+                                    const temp = new Image();
+                                    temp.onload = temp.onerror = resolve;
+                                    temp.src = img.src;
+                                });
+                            })).then(loadNextChunk);
+                        };
+                        
+                        loadNextChunk();
+                    }, 1500); // Wait 1.5s after load event to ensure main thread is completely idle
+                });
             });
     </script>
 </body>
