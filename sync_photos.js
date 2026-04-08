@@ -12,7 +12,7 @@ const ASSETS_BASE = 'assets';
  */
 
 const CONFIG = {
-    childhoodGroom: 'origins',
+    childhoodGroom: 'origins/harry',
     childhoodBride: 'origins/ihsin',
     travelTaiwan: 'island/taiwan',
     travelJapan: 'island/japan',
