@@ -775,7 +775,7 @@
             });
             const inner = document.getElementById(`${target}-inner`);
             if (inner && inner.childElementCount === 0) {
-                setupMarquee(`${target}-inner`, `${target}-marquee`, USER_PHOTOS[`travel${target.charAt(0).toUpperCase() + target.slice(1)}`], target.toUpperCase(), true, false, 8);
+                setupMarquee(`${target}-inner`, `${target}-marquee`, USER_PHOTOS[`travel${target.charAt(0).toUpperCase() + target.slice(1)}`], target.toUpperCase(), false, false, 8);
             }
         }
 
@@ -1109,10 +1109,10 @@
                 
                 // 1. Initialize marquees (now lazy by default)
                 // Taiwan velocity is tuned up slightly higher to match visual perception of Reverse sliding
-                setupMarquee('taiwan-inner', 'taiwan-marquee', USER_PHOTOS.travelTaiwan, 'TAIWAN', true, false, 10);
+                setupMarquee('taiwan-inner', 'taiwan-marquee', USER_PHOTOS.travelTaiwan, 'TAIWAN', false, false, 10);
                 setupMarquee('groom-inner', 'groom-marquee', USER_PHOTOS.childhoodGroom, '建誠', false, false, 8);
-                setupMarquee('japan-inner', 'japan-marquee', USER_PHOTOS.travelJapan, 'JAPAN', true, false, 8);
-                setupMarquee('philippines-inner', 'philippines-marquee', USER_PHOTOS.travelPhilippines, 'PHILIPPINES', true, false, 8);
+                setupMarquee('japan-inner', 'japan-marquee', USER_PHOTOS.travelJapan, 'JAPAN', false, false, 8);
+                setupMarquee('philippines-inner', 'philippines-marquee', USER_PHOTOS.travelPhilippines, 'PHILIPPINES', false, false, 8);
                 setupMarquee('bride-inner', 'bride-marquee', USER_PHOTOS.childhoodBride, '奕昕', false, false, 8);
             });
     </script>
