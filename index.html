@@ -95,7 +95,7 @@
 
         .marquee-container { display: flex; white-space: nowrap; overflow-x: auto; width: 100%; scrollbar-width: none; -ms-overflow-style: none; }
         .marquee-container::-webkit-scrollbar { display: none; }
-        .marquee-inner { display: flex; gap: 32px; align-items: center; padding-right: 32px; flex-shrink: 0; }
+        .marquee-inner { display: flex; gap: 32px; align-items: center; flex-shrink: 0; }
         
         @keyframes marquee-infinite {
             0% { transform: translateX(0); }
@@ -717,6 +717,7 @@
                 updateSpeed();
                 window.addEventListener('resize', updateSpeed);
 
+                inner.style.transform = isReverse ? 'translateX(-50%)' : 'translateX(0)';
                 if (!inner.classList.contains('marquee-active') && !inner.classList.contains('marquee-active-reverse')) {
                     inner.classList.add(isReverse ? 'marquee-active-reverse' : 'marquee-active');
                 }
