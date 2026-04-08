@@ -89,16 +89,37 @@ async function main() {
 
         // 第二階段：更新 index.html
         let indexContent = fs.readFileSync(INDEX_PATH, 'utf8');
+        
+        // 讀取敘述檔案 (如果存在)
+        const DESC_PATH = path.join(__dirname, ASSETS_BASE, 'descriptions.json');
+        let descriptions = {};
+        if (fs.existsSync(DESC_PATH)) {
+            try {
+                descriptions = JSON.parse(fs.readFileSync(DESC_PATH, 'utf8'));
+                console.log('📖 已載入照片敘述對照表。');
+            } catch (e) {
+                console.error('⚠️ 敘述檔案格式錯誤，將使用預設標題。');
+            }
+        }
+
         let newPhotosObj = 'const USER_PHOTOS = {\n';
         const entries = Object.entries(CONFIG);
         
         entries.forEach(([key, dir], idx) => {
             const files = getWebPFiles(dir);
+            // 將路徑轉為物件格式，包含敘述
+            const data = files.map(src => {
+                const base = path.basename(src, '.webp');
+                return {
+                    src: src,
+                    cap: descriptions[base] || "" // 如果沒敘述則留空
+                };
+            });
             const isLast = idx === entries.length - 1;
-            newPhotosObj += `             ${key}: ${JSON.stringify(files)}${isLast ? '' : ','}\n`;
+            newPhotosObj += `             ${key}: ${JSON.stringify(data)}${isLast ? '' : ','}\n`;
         });
         
-        // 保留影片
+        // 保留影片 (影片目前維持路徑字串即可，若需敘述可再擴充)
         const promiseVideos = ["assets/promise/video/promise_01.mp4","assets/promise/video/promise_02.mp4"];
         newPhotosObj = newPhotosObj.replace('hiking:', `promiseVideos: ${JSON.stringify(promiseVideos)},\n             hiking:`);
         newPhotosObj += '        };';
