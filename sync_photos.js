@@ -78,7 +78,7 @@ function getWebPFiles(dir) {
             const filePath = path.join(fullDir, f);
             return fs.statSync(filePath).isFile() && ext === '.webp';
         })
-        .sort((a, b) => b.localeCompare(a, undefined, { numeric: true, sensitivity: 'base' })) 
+        .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })) 
         .map(f => `assets/${dir}/${f}`);
 }
 
