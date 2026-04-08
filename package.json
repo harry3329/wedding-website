@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "sync-photos": "node sync_photos.js",
-    "optimize-photos": "node fix_rotation.js"
+    "optimize-photos": "node sync_photos.js"
   },
   "dependencies": {
     "sharp": "^0.34.5"
