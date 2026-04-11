@@ -46,7 +46,8 @@ async function processOriginals() {
                 if (EXTS.includes(ext)) {
                     const inputPath = path.join(scanDir, file);
                     // 轉檔後的 webp 統一放回主資料夾
-                    const outputPath = path.join(fullDir, path.basename(file, ext) + '.webp');
+                    const base = file.replace(new RegExp(ext.replace('.', '\\.') + '$', 'i'), '');
+                    const outputPath = path.join(fullDir, base + '.webp');
 
                     try {
                         await sharp(inputPath)
