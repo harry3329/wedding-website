@@ -138,6 +138,36 @@ async function main() {
         } else {
             console.error('❌ 找不到 USER_PHOTOS 區塊。');
         }
+        // 第三階段：更新網頁文字 (新功能)
+        const TEXT_PATH = path.join(__dirname, ASSETS_BASE, 'website_text.json');
+        if (fs.existsSync(TEXT_PATH)) {
+            try {
+                const websiteText = JSON.parse(fs.readFileSync(TEXT_PATH, 'utf8'));
+                // 再次讀取（或是使用更新後的內容）
+                let finalContent = fs.readFileSync(INDEX_PATH, 'utf8');
+                
+                // 使用 Regex 尋找具有 data-content 屬性的標籤並替換其內容
+                // 匹配模式: (前導標籤包含 data-content="key")(舊內容)(結束標籤)
+                const updatedContent = finalContent.replace(/(<[^>]+data-content="([^"]+)"[^>]*>)([\s\S]*?)(<\/[^>]+>)/g, (match, openTag, key, oldText, closeTag) => {
+                    const parts = key.split('.');
+                    let val = websiteText;
+                    for (const p of parts) {
+                        if (val && val[p] !== undefined) val = val[p];
+                        else { val = null; break; }
+                    }
+                    
+                    if (val !== null && typeof val === 'string') {
+                        return `${openTag}${val}${closeTag}`;
+                    }
+                    return match;
+                });
+
+                fs.writeFileSync(INDEX_PATH, updatedContent, 'utf8');
+                console.log('📝 網頁文字內容已同步更新！');
+            } catch (e) {
+                console.error('⚠️ 網頁文字同步失敗:', e.message);
+            }
+        }
     } catch (err) {
         console.error('❌ 執行失敗:', err.message);
     }

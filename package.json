@@ -2,6 +2,7 @@
   "name": "wedding-website",
   "version": "1.0.0",
   "scripts": {
+    "sync": "node sync_photos.js",
     "sync-photos": "node sync_photos.js",
     "optimize-photos": "node sync_photos.js"
   },
