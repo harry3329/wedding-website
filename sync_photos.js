@@ -25,6 +25,8 @@ const CONFIG = {
 };
 
 const EXTS = ['.jpg', '.jpeg', '.png', '.heic'];
+const MAX_DIM = 2000;
+const QUALITY = 75;
 
 async function processOriginals() {
     console.log('🔍 正在檢查是否有原始照片需要轉檔...');
@@ -52,7 +54,8 @@ async function processOriginals() {
                     try {
                         await sharp(inputPath)
                             .rotate()
-                            .webp({ quality: 85 })
+                            .resize({ width: 2000, height: 2000, fit: 'inside', withoutEnlargement: true })
+                            .webp({ quality: 75 })
                             .toFile(outputPath);
                         
                         fs.unlinkSync(inputPath); 
@@ -83,10 +86,50 @@ function getWebPFiles(dir) {
         .map(f => `assets/${dir}/${f}`);
 }
 
+async function reoptimizeAll(dir = path.join(__dirname, ASSETS_BASE)) {
+    if (!fs.existsSync(dir)) return;
+    const items = fs.readdirSync(dir);
+    for (const item of items) {
+        const fullPath = path.join(dir, item);
+        const stat = fs.statSync(fullPath);
+        if (stat.isDirectory()) {
+            await reoptimizeAll(fullPath);
+        } else if (item.toLowerCase().endsWith('.webp')) {
+            try {
+                const metadata = await sharp(fullPath).metadata();
+                // 如果寬或高超過限制，或檔案大小大於 800KB (緩衝處理)
+                const isTooBig = metadata.width > MAX_DIM || metadata.height > MAX_DIM || stat.size > 800 * 1024;
+                
+                if (isTooBig) {
+                    const tmpPath = fullPath + '.tmp.webp';
+                    await sharp(fullPath)
+                        .resize({ width: MAX_DIM, height: MAX_DIM, fit: 'inside', withoutEnlargement: true })
+                        .webp({ quality: QUALITY })
+                        .toFile(tmpPath);
+                    
+                    const newStat = fs.statSync(tmpPath);
+                    if (newStat.size < stat.size) {
+                        fs.renameSync(tmpPath, fullPath);
+                        console.log(`✨ 已優化現有照片: ${path.relative(__dirname, fullPath)} (${(stat.size/1024).toFixed(0)}KB -> ${(newStat.size/1024).toFixed(0)}KB)`);
+                    } else {
+                        fs.unlinkSync(tmpPath);
+                    }
+                }
+            } catch (e) {
+                console.error(`⚠️ 無法優化 ${item}:`, e.message);
+            }
+        }
+    }
+}
+
 async function main() {
     try {
-        // 第一階段：轉檔
+        // 第一階段：轉檔新照片
         await processOriginals();
+        
+        // 1.5 階段：優化現有 WebP (確保舊照片也符合新規範)
+        console.log('🔄 正在檢查並優化現有 WebP 照片...');
+        await reoptimizeAll();
 
         // 第二階段：更新 index.html
         let indexContent = fs.readFileSync(INDEX_PATH, 'utf8');
