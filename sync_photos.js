@@ -154,9 +154,11 @@ async function main() {
             // 將路徑轉為物件格式，包含敘述
             const data = files.map(src => {
                 const base = path.basename(src, '.webp');
+                const baseWithoutSuffix = base.replace(/-\d+$/, '');
                 return {
                     src: src,
-                    cap: descriptions[base] || "" // 如果沒敘述則留空
+                    cap: descriptions[base] !== undefined && descriptions[base] !== "" ? descriptions[base] : 
+                         (descriptions[baseWithoutSuffix] || "")
                 };
             });
             const isLast = idx === entries.length - 1;
