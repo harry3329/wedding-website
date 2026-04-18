@@ -894,18 +894,33 @@
             forestGrid.innerHTML = `<div class="absolute top-0 bottom-0 left-1/2 w-px border-l border-dashed border-japandi-oak/40 transform -translate-x-1/2 z-0 hidden md:block"></div>
                 <div class="absolute top-0 bottom-0 left-1/2 w-px border-l border-dashed border-japandi-oak/30 transform -translate-x-1/2 z-0 block md:hidden"></div>`;
             
-            const hikingGallery = USER_PHOTOS.hiking.map((item, i) => ({ 
-                src: item.src, 
-                cap: item.cap || `山林回憶 ${String(i+1).padStart(2,'0')}` 
-            }));
+            const hikingGallery = USER_PHOTOS.hiking.map((item, i) => {
+                const parts = (item.cap || "").split('|').map(s => s.trim());
+                return { 
+                    src: item.src, 
+                    cap: parts[0] || `山林回憶 ${String(i+1).padStart(2,'0')}` 
+                };
+            });
             
             USER_PHOTOS.hiking.forEach((item, i) => {
                 const div = document.createElement('div');
                 const isEven = i % 2 === 0;
-                // Add staggered vertical offset
                 const offsetClass = isEven ? 'md:mt-0 mt-0' : 'md:mt-12 mt-8';
+                
+                // 動態解析名稱與高度 (格式: "山名 | 高度")
+                const parts = (item.cap || "").split('|').map(s => s.trim());
+                const mountName = parts[0] || `Path ${String(i+1).padStart(2,'0')}`;
+                const elevation = parts[1] || `2${i%5}00m`;
+
                 div.className = `reveal forest-photo w-full group cursor-pointer relative z-10 ${offsetClass} ${i % 2 === 0 ? 'rotate-1' : '-rotate-1'}`;
-                div.innerHTML = `<div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-xl border-[4px] md:border-[6px] border-white rounded-sm"><img src="${item.src}" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"></div><div class="mt-3 flex justify-between items-center px-1 opacity-40 text-[7px] tracking-widest uppercase"><span>Path ${String(i+1).padStart(2,'0')}</span><span>Elev. 2${i%5}00m</span></div>`;
+                div.innerHTML = `
+                    <div class="aspect-[3/4] overflow-hidden bg-japandi-clay shadow-xl border-[4px] md:border-[6px] border-white rounded-sm">
+                        <img src="${item.src}" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110">
+                    </div>
+                    <div class="mt-3 flex justify-between items-center px-1 opacity-40 text-[7px] tracking-widest uppercase">
+                        <span>${mountName}</span>
+                        <span>Elev. ${elevation}</span>
+                    </div>`;
                 div.onclick = () => openLightbox(hikingGallery, i);
                 forestGrid.appendChild(div);
             });
