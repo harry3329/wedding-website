@@ -163,8 +163,15 @@ async function main() {
             newPhotosObj += `             ${key}: ${JSON.stringify(data)}${isLast ? '' : ','}\n`;
         });
         
-        // 保留影片 (影片目前維持路徑字串即可，若需敘述可再擴充)
-        const promiseVideos = ["assets/promise/video/promise_01.mp4","assets/promise/video/promise_02.mp4"];
+        // 動態讀取影片
+        const videoDir = path.join(__dirname, ASSETS_BASE, 'promise/video');
+        const promiseVideos = fs.existsSync(videoDir) 
+            ? fs.readdirSync(videoDir)
+                .filter(f => f.toLowerCase().endsWith('.mp4'))
+                .sort()
+                .map(f => `assets/promise/video/${f}`)
+            : [];
+            
         newPhotosObj = newPhotosObj.replace('hiking:', `promiseVideos: ${JSON.stringify(promiseVideos)},\n             hiking:`);
         newPhotosObj += '        };';
 
