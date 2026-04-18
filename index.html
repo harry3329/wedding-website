@@ -938,21 +938,27 @@
                 const progress = document.getElementById('dating-progress');
                 if (!reel) return;
                 
-                reel.innerHTML = USER_PHOTOS.dating.map((item, i) => `
+                const infiniteDating = [...USER_PHOTOS.dating, ...USER_PHOTOS.dating, ...USER_PHOTOS.dating];
+                reel.innerHTML = infiniteDating.map((item, idx) => {
+                    const i = idx % USER_PHOTOS.dating.length;
+                    return `
                     <div class="flex-shrink-0 w-52 md:w-80 aspect-[4/5] group cursor-pointer" onclick="openLightbox(window.datingGallery, ${i})">
                         <div class="w-full h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-lg transition-transform duration-500 hover:scale-[1.02] bg-japandi-clay">
                             <img src="${item.src}" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700">
                         </div>
                     </div>
-                `).join('');
+                `}).join('');
 
                 const updateProgress = () => {
                     if (progress) {
-                        const scrollP = reel.scrollLeft / (reel.scrollWidth - reel.offsetWidth);
+                        const third = reel.scrollWidth / 3;
+                        const relativeScroll = (reel.scrollLeft % third);
+                        const scrollP = relativeScroll / (third - (reel.offsetWidth / 3)); 
                         progress.style.width = `${Math.max(0, Math.min(100, scrollP * 100))}%`;
                     }
                 };
                 reel.addEventListener('scroll', updateProgress, { passive: true });
+                wrapScroll(reel);
                 setTimeout(updateProgress, 100);
             };
             populateDatingReel();
