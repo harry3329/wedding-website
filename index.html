@@ -271,7 +271,7 @@
 <body class="font-sans text-japandi-ink antialiased selection:bg-japandi-oak selection:text-white overflow-x-hidden">
 
     <!-- 自訂游標 -->
-    <div id="cursor" class="fixed w-4 h-4 bg-japandi-ink/20 rounded-full pointer-events-none z-[100] transform -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out hidden md:block"></div>
+    <div id="cursor" class="fixed w-4 h-4 bg-japandi-ink/20 rounded-full pointer-events-none z-[9999] transform -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out hidden md:block"></div>
 
     <!-- 全螢幕 Preloader -->
     <div id="preloader" class="fixed inset-0 z-[110] bg-[#EBF1E6] flex flex-col justify-center items-center transition-opacity duration-1000 ease-out">
@@ -802,6 +802,13 @@
         document.getElementById('modal-next').onclick = (e) => { e.stopPropagation(); nextImage(); };
         document.getElementById('modal-prev').onclick = (e) => { e.stopPropagation(); prevImage(); };
         function closeModal() { document.getElementById('image-modal').classList.remove('active'); document.body.style.overflow = ''; }
+        
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('image-modal').classList.contains('active')) return;
+            if (e.key === 'Escape') closeModal();
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+        });
         function updateLightboxView() {
             if (!lightboxGroup || lightboxGroup.length === 0) return;
             const item = lightboxGroup[lightboxIndex];
@@ -1064,7 +1071,7 @@
             
             const setCursorMode = (mode) => {
                 if (window.innerWidth < 768) return;
-                customCursor.className = 'fixed rounded-full pointer-events-none z-[100] transform -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out hidden md:flex items-center justify-center text-[#EBF1E6] text-[8px] tracking-widest font-sans font-bold';
+                customCursor.className = 'fixed rounded-full pointer-events-none z-[9999] transform -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out hidden md:flex items-center justify-center text-[#EBF1E6] text-[8px] tracking-widest font-sans font-bold';
                 
                 if (mode === 'DRAG') {
                     customCursor.classList.add('w-12', 'h-12', 'bg-japandi-oak/90');
@@ -1077,7 +1084,7 @@
                     customCursor.classList.add('w-12', 'h-12', 'bg-japandi-ink/90', 'scale-90');
                     customCursor.innerHTML = 'DRAG';
                 } else {
-                    customCursor.className = 'fixed w-4 h-4 bg-japandi-ink/20 rounded-full pointer-events-none z-[100] transform -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out hidden md:block';
+                    customCursor.className = 'fixed w-4 h-4 bg-japandi-ink/20 rounded-full pointer-events-none z-[9999] transform -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out hidden md:block';
                     customCursor.innerHTML = '';
                 }
             };
