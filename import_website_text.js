@@ -21,11 +21,21 @@ for (let i = 1; i < lines.length; i++) {
     let line = lines[i].trim();
     if (!line) continue;
     
+    let fullKey, val;
     let match = line.match(/^"([^"]+)","(.*)"$/);
-    if (!match) continue;
     
-    let fullKey = match[1];
-    let val = match[2].replace(/""/g, '"');
+    if (match) {
+        fullKey = match[1];
+        val = match[2].replace(/""/g, '"');
+    } else {
+        let parts = line.split(',');
+        if (parts.length >= 2) {
+            fullKey = parts[0].replace(/^"|"$/g, '');
+            val = parts.slice(1).join(',').replace(/^"|"$/g, '');
+        } else {
+            continue;
+        }
+    }
     
     let parts = fullKey.split('.');
     if (parts.length >= 2) {
