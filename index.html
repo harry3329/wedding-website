@@ -931,7 +931,7 @@
             const infiniteMusic = [...USER_PHOTOS.music, ...USER_PHOTOS.music, ...USER_PHOTOS.music];
             musicGrid.innerHTML = infiniteMusic.map((item, idx) => {
                 const i = idx % USER_PHOTOS.music.length;
-                return `<div class="flex-shrink-0 w-52 md:w-80 snap-center group cursor-pointer reveal" onclick="openLightbox(window.musicGallery, ${i})"><div class="aspect-[4/5] bg-japandi-clay rounded-2xl md:rounded-3xl shadow-lg transform transition-transform duration-500 hover:scale-[1.02] overflow-hidden"><img src="${item.src}" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-95 hover:opacity-100 transition-all duration-700"></div><div class="mt-4 flex flex-col items-center gap-2 opacity-30 text-[9px] uppercase tracking-[0.4em]">Sequence ${String(i+1).padStart(2,'0')}</div></div>`;
+                return `<div class="flex-shrink-0 w-52 md:w-80 snap-center group cursor-pointer reveal" onclick="openLightbox(window.musicGallery, ${i})"><div class="aspect-[4/5] bg-japandi-clay rounded-2xl md:rounded-3xl shadow-lg transform transition-transform duration-500 hover:scale-[1.02] overflow-hidden"><img src="${item.src}" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-95 hover:opacity-100 transition-all duration-700"></div></div>`;
             }).join('');
             musicGrid.onscroll = () => {
                 progressBar.style.transform = `scaleX(${musicGrid.scrollLeft / (musicGrid.scrollWidth - musicGrid.offsetWidth)})`;
