@@ -1,33 +1,33 @@
-﻿區塊與欄位 (勿改),文字內容 (可修改)
-"hero.title_top","ABOUT"
-"hero.title_bottom","US"
-"hero.subtitle","ABOUT TIME"
-"hero.date","2026 . 04 . 29"
-"intro.main","「我們生活的每一天，都在穿越時空，<br>我們能做的就是盡其所能，<br>珍惜這趟不平凡的旅程。」"
-"origins.title","那些曾經"
-"origins.subtitle","THE ORIGINS"
-"origins.desc","「在兩條平行的時空裡，悄悄埋下了相遇的種子。」"
-"origins.groom_label","建誠"
-"origins.bride_label","奕昕"
-"timeline.title","那年我們"
-"timeline.subtitle","Vertical Convergence Path"
-"timeline.desc_left","從 1989 出發，<br>直到 2018.08.05，<br>兩道平行的波動<br>終於在零點相遇。"
-"timeline.date_milestone","2018.08.05"
-"forest.title","那片山林"
-"forest.subtitle","THE GREAT OUTDOORS"
-"forest.desc","「我們在山林間呼吸，感受大地最原始的共振。每一次攀登，都是一次心的洗禮。」"
-"music.title","那段音樂"
-"music.subtitle","SONIC RESONANCE"
-"music.desc","「那些旋律裡有我們共有的時間。翻動收藏，讓記憶在頻率中放大。」"
-"island.title","那座島嶼"
-"island.subtitle","GEOGRAPHIC WHISPERS"
-"island.desc","「在島嶼的輪廓中，我們尋找冒險的足跡。從城市的脈動到自然的呼吸。」"
-"daily.title","那些日常"
-"daily.subtitle","CHRONICLES OF US"
-"daily.desc","「平凡的時刻，因為有你而變得不凡。在細碎的生活中，我們堆疊著屬於彼此的頻率。」"
-"promise.title","那些約定"
-"promise.subtitle","SACRED VOWS"
-"promise.desc","「時間是最好的見證。我們在彼此的目光中，許下了一生的約定。」"
-"beauty.title","那些美好"
-"beauty.subtitle","ETERNAL MOMENTS"
-"beauty.desc","「按下快門的那一刻，時間彷彿靜止。所有的美好，都被溫柔地收進了鏡頭裡。」"
+區塊與欄位 (勿改),文字內容 (可修改)
+hero.title_top,ABOUT
+hero.title_bottom,US
+hero.subtitle,ABOUT TIME
+hero.date,2026 . 04 . 29
+intro.main,「我們生活的每一天<br>都在穿越時空<br>我們能做的就是盡其所能<br>珍惜這趟不平凡的旅程。」
+origins.title,曾經
+origins.subtitle,Back Then
+origins.desc,「在平行的生活裡，我們慢慢走向了彼此。」
+origins.groom_label,建誠
+origins.bride_label,奕昕
+timeline.title,遇見
+timeline.subtitle,Two paths. One story
+timeline.desc_left,各自從1989開始 <br>直到 2018.08.05<br>這一天<br>兩個人<br>走到了一起。
+timeline.date_milestone,2018.08.05
+forest.title,山林
+forest.subtitle,Into the Woods 
+forest.desc,"「一起走進了山林，看過陵間的日出, 結霜的箭竹, 躲貓貓的山羌。」"
+music.title,音樂
+music.subtitle,Our Soundtrack
+music.desc,「一起去聽音樂，從北到南，從台灣到日本。在每個當下，我們享受著共享旋律的時刻。」
+island.title,旅行
+island.subtitle,About Journeys
+island.desc,「我們的旅行可以分成兩種型式：兩個人選好一座城市，隨興的、緩慢的挖掘很平實的驚喜。或是和朋友們，可以是瘋狂，但大多無效率，聚在一起才是目的地。」
+daily.title,日常
+daily.subtitle,Daily Life
+daily.desc,「我們喜歡電影、展覽、音樂、腳踏車、吃到飽，更喜歡朋友，賴在誰家一天就沒了。我們的日常很簡單、很滿足。」
+promise.title,約定
+promise.subtitle,Simple Vows
+promise.desc,「能遇見靈魂伴侶的機率是六十億分之一，我們大概是找到了吧！」
+beauty.title,美好
+beauty.subtitle,The Moment
+beauty.desc,「按下快門的那一刻，我們對視的一笑，那一秒就已經預告了未來的美好。」
