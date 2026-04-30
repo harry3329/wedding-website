@@ -733,11 +733,15 @@
                         if (wrapDistance > 0) {
                             exactScrollLeft = isReverse ? wrapDistance * 2 : wrapDistance;
                             marquee.scrollLeft = exactScrollLeft;
+                            inner.style.transform = `translate3d(0, 0, 0)`;
                             lastTime = performance.now();
                         }
                     });
                 };
 
+                // Ensure inner uses hardware acceleration
+                inner.style.willChange = 'transform';
+                
                 const animateScroll = (time) => {
                     if (!time) time = performance.now();
                     let dt = time - lastTime;
@@ -752,9 +756,18 @@
                         } else if (exactScrollLeft < wrapDistance) {
                             exactScrollLeft += wrapDistance;
                         }
-                        marquee.scrollLeft = exactScrollLeft;
+                        
+                        // Use integer scrollLeft + fractional CSS transform for smooth sub-pixel scrolling
+                        let intScroll = Math.floor(exactScrollLeft);
+                        let fracScroll = exactScrollLeft - intScroll;
+                        marquee.scrollLeft = intScroll;
+                        inner.style.transform = `translate3d(${-fracScroll}px, 0, 0)`;
+                        
                     } else if (isPaused && wrapDistance > 0) {
+                        // Reset transform when manual scrolling
+                        inner.style.transform = `translate3d(0, 0, 0)`;
                         exactScrollLeft = marquee.scrollLeft;
+                        
                         if (exactScrollLeft >= wrapDistance * 2) {
                             exactScrollLeft -= wrapDistance;
                             marquee.scrollLeft = exactScrollLeft;
