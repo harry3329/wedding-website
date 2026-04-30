@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-97PYVWGQEE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-97PYVWGQEE');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Time | 建誠 ＆ 奕昕</title>
@@ -700,22 +709,78 @@
 
                 inner.appendChild(createSet());
                 inner.appendChild(createSet());
+                inner.appendChild(createSet());
 
-                const updateSpeed = () => {
+                let wrapDistance = 0;
+                const calculateWrap = () => {
                     const firstChild = inner.children[0];
-                    if (!firstChild) return;
-                    // Read actual DOM width to be completely CSS-independent
-                    const cardWidth = firstChild.offsetWidth + 32; 
-                    const totalWidth = photos.length * cardWidth;
-                    inner.style.animationDuration = `${totalWidth / customSpeed}s`; 
+                    if (firstChild) {
+                        wrapDistance = photos.length * (firstChild.offsetWidth + 32);
+                    }
                 };
-                updateSpeed();
-                window.addEventListener('resize', updateSpeed);
+                calculateWrap();
+                window.addEventListener('resize', calculateWrap);
 
-                inner.style.transform = isReverse ? 'translateX(-50%)' : 'translateX(0)';
-                if (!inner.classList.contains('marquee-active') && !inner.classList.contains('marquee-active-reverse')) {
-                    inner.classList.add(isReverse ? 'marquee-active-reverse' : 'marquee-active');
-                }
+                let isPaused = false;
+                let exactScrollLeft = isReverse ? wrapDistance * 2 : wrapDistance;
+                marquee.scrollLeft = exactScrollLeft;
+                
+                let scrollSpeed = speedFactor; 
+                let lastTime = performance.now();
+
+                marquee._resetMarquee = () => {
+                    requestAnimationFrame(() => {
+                        if (wrapDistance > 0) {
+                            exactScrollLeft = isReverse ? wrapDistance * 2 : wrapDistance;
+                            marquee.scrollLeft = exactScrollLeft;
+                            lastTime = performance.now();
+                        }
+                    });
+                };
+
+                const animateScroll = (time) => {
+                    if (!time) time = performance.now();
+                    let dt = time - lastTime;
+                    lastTime = time;
+                    if (dt > 100) dt = 16;
+
+                    if (!isPaused && wrapDistance > 0) {
+                        exactScrollLeft += (isReverse ? -1 : 1) * scrollSpeed * (dt / 1000);
+                        
+                        if (exactScrollLeft >= wrapDistance * 2) {
+                            exactScrollLeft -= wrapDistance;
+                        } else if (exactScrollLeft < wrapDistance) {
+                            exactScrollLeft += wrapDistance;
+                        }
+                        marquee.scrollLeft = exactScrollLeft;
+                    } else if (isPaused && wrapDistance > 0) {
+                        exactScrollLeft = marquee.scrollLeft;
+                        if (exactScrollLeft >= wrapDistance * 2) {
+                            exactScrollLeft -= wrapDistance;
+                            marquee.scrollLeft = exactScrollLeft;
+                        } else if (exactScrollLeft <= 0) {
+                            exactScrollLeft += wrapDistance;
+                            marquee.scrollLeft = exactScrollLeft;
+                        }
+                    }
+                    requestAnimationFrame(animateScroll);
+                };
+                requestAnimationFrame(animateScroll);
+
+                const pauseScroll = () => { isPaused = true; };
+                const resumeScroll = () => { isPaused = false; lastTime = performance.now(); };
+
+                marquee.addEventListener('mouseenter', pauseScroll);
+                marquee.addEventListener('mouseleave', resumeScroll);
+                marquee.addEventListener('touchstart', pauseScroll, {passive: true});
+                marquee.addEventListener('touchend', resumeScroll, {passive: true});
+                
+                let wheelTimeout;
+                marquee.addEventListener('wheel', () => {
+                    pauseScroll();
+                    clearTimeout(wheelTimeout);
+                    wheelTimeout = setTimeout(resumeScroll, 200);
+                }, {passive: true});
             };
 
             const observer = new IntersectionObserver((entries) => {
@@ -725,12 +790,6 @@
                 }
             }, { rootMargin: '1200px 0px' });
             observer.observe(marquee);
-
-            const pauseScroll = () => { inner.style.animationPlayState = 'paused'; };
-            const resumeScroll = () => { inner.style.animationPlayState = 'running'; };
-            marquee.addEventListener('touchstart', pauseScroll, {passive: true});
-            marquee.addEventListener('touchend', resumeScroll, {passive: true});
-            marquee.addEventListener('wheel', pauseScroll, {passive: true});
         }
 
         function switchOrigin(target) {
@@ -741,6 +800,8 @@
                     el.classList.remove('opacity-0', 'h-0', 'overflow-hidden');
                     el.classList.add('opacity-100');
                     if (btn) btn.classList.add('active');
+                    const marquee = document.getElementById(`${p}-marquee`);
+                    if (marquee && marquee._resetMarquee) marquee._resetMarquee();
                 } else {
                     el.classList.add('opacity-0', 'h-0', 'overflow-hidden');
                     el.classList.remove('opacity-100');
@@ -762,6 +823,8 @@
                     el.classList.remove('opacity-0', 'h-0', 'overflow-hidden');
                     el.classList.add('opacity-100');
                     btn.classList.add('active');
+                    const marquee = document.getElementById(`${c}-marquee`);
+                    if (marquee && marquee._resetMarquee) marquee._resetMarquee();
                 } else {
                     el.classList.add('opacity-0', 'h-0', 'overflow-hidden');
                     el.classList.remove('opacity-100');
