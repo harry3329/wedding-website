@@ -743,12 +743,14 @@
                 inner.style.willChange = 'transform';
                 
                 const animateScroll = (time) => {
+                    if (userInteracted) return; // Completely stop auto-scroll loop
+
                     if (!time) time = performance.now();
                     let dt = time - lastTime;
                     lastTime = time;
                     if (dt > 100) dt = 16;
 
-                    if (!isPaused && wrapDistance > 0) {
+                    if (wrapDistance > 0) {
                         exactScrollLeft += (isReverse ? -1 : 1) * scrollSpeed * (dt / 1000);
                         
                         if (exactScrollLeft >= wrapDistance * 2) {
@@ -767,47 +769,29 @@
                 };
                 requestAnimationFrame(animateScroll);
 
-                let pauseTimeout;
-                const pauseScroll = () => { 
-                    if (!isPaused) {
-                        isPaused = true; 
+                let userInteracted = false;
+                
+                const stopAutoScroll = () => {
+                    if (!userInteracted) {
+                        userInteracted = true;
                         inner.style.transform = `translate3d(0, 0, 0)`;
                     }
-                    clearTimeout(pauseTimeout);
-                };
-                const resumeScroll = () => { 
-                    // Sync the exactScrollLeft with the physical scroll position before resuming
-                    exactScrollLeft = marquee.scrollLeft;
-                    
-                    // Do a boundary check so it doesn't get stuck if user scrolled too far natively
-                    if (exactScrollLeft >= wrapDistance * 2) exactScrollLeft -= wrapDistance;
-                    else if (exactScrollLeft <= wrapDistance) exactScrollLeft += wrapDistance;
-                    
-                    isPaused = false; 
-                    lastTime = performance.now(); 
                 };
 
-                marquee.addEventListener('mouseenter', pauseScroll);
-                marquee.addEventListener('mouseleave', () => {
-                    pauseTimeout = setTimeout(resumeScroll, 500);
-                });
-                
-                marquee.addEventListener('touchstart', pauseScroll, {passive: true});
-                marquee.addEventListener('touchend', () => {
-                    pauseTimeout = setTimeout(resumeScroll, 1000);
-                }, {passive: true});
-                
+                // Permanently stop auto-scroll on any manual interaction
+                marquee.addEventListener('touchstart', stopAutoScroll, {passive: true});
+                marquee.addEventListener('mousedown', stopAutoScroll, {passive: true});
+                marquee.addEventListener('wheel', stopAutoScroll, {passive: true});
+
+                // Native boundary wrapping listener for infinite manual scrolling
                 marquee.addEventListener('scroll', () => {
-                    if (isPaused) {
-                        clearTimeout(pauseTimeout);
-                        // Increased to 500ms so it doesn't cut off native momentum scrolls
-                        pauseTimeout = setTimeout(resumeScroll, 500);
+                    if (userInteracted && wrapDistance > 0) {
+                        if (marquee.scrollLeft < 10) {
+                            marquee.scrollLeft += wrapDistance;
+                        } else if (marquee.scrollLeft > marquee.scrollWidth - marquee.offsetWidth - 10) {
+                            marquee.scrollLeft -= wrapDistance;
+                        }
                     }
-                }, {passive: true});
-                
-                marquee.addEventListener('wheel', () => {
-                    pauseScroll();
-                    pauseTimeout = setTimeout(resumeScroll, 500);
                 }, {passive: true});
             };
 
