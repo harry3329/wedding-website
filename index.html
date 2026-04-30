@@ -764,10 +764,9 @@
                         inner.style.transform = `translate3d(${-fracScroll}px, 0, 0)`;
                         
                     } else if (isPaused && wrapDistance > 0) {
-                        // Reset transform when manual scrolling
-                        inner.style.transform = `translate3d(0, 0, 0)`;
                         exactScrollLeft = marquee.scrollLeft;
                         
+                        // We do boundary checks even when paused to allow infinite manual scrolling
                         if (exactScrollLeft >= wrapDistance * 2) {
                             exactScrollLeft -= wrapDistance;
                             marquee.scrollLeft = exactScrollLeft;
@@ -780,19 +779,39 @@
                 };
                 requestAnimationFrame(animateScroll);
 
-                const pauseScroll = () => { isPaused = true; };
-                const resumeScroll = () => { isPaused = false; lastTime = performance.now(); };
+                let pauseTimeout;
+                const pauseScroll = () => { 
+                    if (!isPaused) {
+                        isPaused = true; 
+                        inner.style.transform = `translate3d(0, 0, 0)`;
+                    }
+                    clearTimeout(pauseTimeout);
+                };
+                const resumeScroll = () => { 
+                    isPaused = false; 
+                    lastTime = performance.now(); 
+                };
 
                 marquee.addEventListener('mouseenter', pauseScroll);
-                marquee.addEventListener('mouseleave', resumeScroll);
-                marquee.addEventListener('touchstart', pauseScroll, {passive: true});
-                marquee.addEventListener('touchend', resumeScroll, {passive: true});
+                marquee.addEventListener('mouseleave', () => {
+                    pauseTimeout = setTimeout(resumeScroll, 200);
+                });
                 
-                let wheelTimeout;
+                marquee.addEventListener('touchstart', pauseScroll, {passive: true});
+                marquee.addEventListener('touchend', () => {
+                    pauseTimeout = setTimeout(resumeScroll, 800);
+                }, {passive: true});
+                
+                marquee.addEventListener('scroll', () => {
+                    if (isPaused) {
+                        clearTimeout(pauseTimeout);
+                        pauseTimeout = setTimeout(resumeScroll, 200);
+                    }
+                }, {passive: true});
+                
                 marquee.addEventListener('wheel', () => {
                     pauseScroll();
-                    clearTimeout(wheelTimeout);
-                    wheelTimeout = setTimeout(resumeScroll, 200);
+                    pauseTimeout = setTimeout(resumeScroll, 200);
                 }, {passive: true});
             };
 
