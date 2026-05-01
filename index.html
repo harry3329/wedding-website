@@ -1040,6 +1040,10 @@
                 src: item.src, 
                 cap: item.cap || `約定 ${String(i+1).padStart(2,'0')}` 
             }));
+            window.beganGallery = USER_PHOTOS.began.map((item, i) => ({
+                src: item.src,
+                cap: item.cap || `開始 ${String(i+1).padStart(2,'0')}`
+            }));
             
             const wrapScroll = (el) => {
                 if(!el) return;
@@ -1079,6 +1083,30 @@
                 setTimeout(updateProgress, 100);
             };
             populateDatingReel();
+            
+            const populateBeganGallery = () => {
+                const gallery = document.getElementById('began-gallery');
+                if (!gallery) return;
+                
+                // 設定為 snap-x 讓翻書感更強，一頁一頁翻
+                gallery.className = "flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-4 md:gap-8 px-6 md:px-[20vw] py-10 items-center";
+                
+                gallery.innerHTML = USER_PHOTOS.began.map((item, i) => {
+                    // 第 1 張 (書約) 給稍微不一樣的樣式，其他的當作內頁
+                    const isCover = i === 0;
+                    const aspectClass = isCover ? "aspect-[3/4] md:aspect-[4/5]" : "aspect-[4/5]";
+                    const extraClasses = isCover ? "border-8 border-white" : "border border-japandi-clay/20";
+                    
+                    return `
+                    <div class="flex-shrink-0 w-[70vw] md:w-[400px] snap-center group cursor-pointer" onclick="openLightbox(window.beganGallery, ${i})">
+                        <div class="w-full ${aspectClass} rounded-sm overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-[1.02] bg-japandi-paper ${extraClasses}">
+                            <img src="${item.src}" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700">
+                        </div>
+                        ${isCover ? '<p class="text-[10px] text-japandi-clay tracking-[0.4em] mt-4 text-center">OUR PROMISE</p>' : ''}
+                    </div>
+                `}).join('');
+            };
+            populateBeganGallery();
             
             const populateBeautyMasonry = () => {
                 const container = document.getElementById('beauty-masonry');
